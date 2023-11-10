@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import static com.trip.back.dto.ApiResult.OK;
 
 @RestController
-@RequestMapping("/account")
+@RequestMapping("api/account")
 @RequiredArgsConstructor
 @Slf4j
 public class AccountController {

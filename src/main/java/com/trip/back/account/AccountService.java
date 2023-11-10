@@ -4,6 +4,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import static com.google.common.base.Preconditions.checkArgument;
 
 import static java.util.regex.Pattern.matches;
@@ -12,6 +14,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 import javax.management.RuntimeErrorException;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class AccountService {
 	
@@ -47,9 +50,13 @@ public class AccountService {
 		checkArgument(password != null, "password must be provided.");
 		Account account = findByEmail(email);
 		if(account == null) {
-			System.out.println("login 싪패");
+			
+			log.error("not exist email ");
 			throw new RuntimeException();
 		}
+		
+		account.login(passwordEncoder, password);
+		
 		
 		return account;
 	}
