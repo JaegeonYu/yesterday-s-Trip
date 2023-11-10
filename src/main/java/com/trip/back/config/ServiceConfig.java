@@ -3,7 +3,8 @@ package com.trip.back.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.spring.enjoytrip.security.Jwt;
+import com.trip.back.security.Jwt;
+
 
 @Configuration
 public class ServiceConfig {

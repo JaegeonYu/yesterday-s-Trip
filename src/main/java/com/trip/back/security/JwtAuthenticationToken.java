@@ -7,7 +7,9 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
-import com.spring.enjoytrip.auth.AuthenticationRequest;
+import com.trip.back.auth.dto.AuthenticationRequest;
+
+
 
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 	 private final Object principal;

@@ -5,8 +5,9 @@ import static com.google.common.base.Preconditions.checkArgument;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.spring.enjoytrip.account.Account;
-import com.spring.enjoytrip.model.Id;
+import com.trip.back.account.Account;
+import com.trip.back.model.Id;
+
 
 
 public class JwtAuthentication {
