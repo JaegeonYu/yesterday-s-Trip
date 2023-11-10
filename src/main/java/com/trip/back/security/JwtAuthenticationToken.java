@@ -1,7 +1,6 @@
 package com.trip.back.security;
 
 import java.util.Collection;
-
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -24,7 +23,7 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 	    this.credentials = credentials;
 	  }
 
-	  JwtAuthenticationToken(Object principal, String credentials, Collection<? extends GrantedAuthority> authorities) {
+	  public JwtAuthenticationToken(Object principal, String credentials, Collection<? extends GrantedAuthority> authorities) {
 	    super(authorities);
 	    super.setAuthenticated(true);
 
