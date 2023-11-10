@@ -1,9 +1,11 @@
-package com.trip.back.account;
+package com.trip.back.account.dto;
 
 import static org.springframework.beans.BeanUtils.copyProperties;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import com.trip.back.account.Account;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

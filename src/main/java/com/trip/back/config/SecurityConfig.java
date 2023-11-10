@@ -12,11 +12,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.spring.enjoytrip.account.AccountService;
-import com.spring.enjoytrip.account.Role;
-import com.spring.enjoytrip.security.Jwt;
-import com.spring.enjoytrip.security.JwtAuthenticationProvider;
-import com.spring.enjoytrip.security.JwtAuthenticationTokenFilter;
+import com.trip.back.account.AccountService;
+import com.trip.back.account.Role;
+import com.trip.back.security.Jwt;
+import com.trip.back.security.JwtAuthenticationProvider;
+import com.trip.back.security.JwtAuthenticationTokenFilter;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,9 +24,10 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-	  private final Jwt jwt;
+	private final Jwt jwt;
 
-	  private final JwtTokenConfig jwtTokenConfig;
+	private final JwtTokenConfig jwtTokenConfig;
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -42,21 +43,20 @@ public class SecurityConfig {
 			throws Exception {
 		return authenticationConfiguration.getAuthenticationManager();
 	}
-	
-	  public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
-		    return new JwtAuthenticationTokenFilter(jwtTokenConfig.getHeader(), jwt);
-		  }
+
+	public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
+		return new JwtAuthenticationTokenFilter(jwtTokenConfig.getHeader(), jwt);
+	}
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable().headers().disable().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-				.antMatchers("/api/auth").permitAll()
-				.antMatchers("/api/account/join").permitAll()
+				.antMatchers("/api/auth").permitAll().antMatchers("/api/account/join").permitAll()
 				.antMatchers("/api/**").hasRole(Role.USER.name()).and().formLogin().disable();
-		
+
 		http.addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-		
+
 		return http.build();
 
 	}

@@ -24,7 +24,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.GenericFilterBean;
 
-import com.spring.enjoytrip.security.Jwt.Claims;
+import com.trip.back.security.Jwt.Claims;
+
+
 
 public class JwtAuthenticationTokenFilter extends GenericFilterBean{
 	

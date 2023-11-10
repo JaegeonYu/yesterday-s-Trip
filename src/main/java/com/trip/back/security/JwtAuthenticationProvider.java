@@ -1,17 +1,17 @@
 package com.trip.back.security;
 
 
+import static org.springframework.security.core.authority.AuthorityUtils.createAuthorityList;
+
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
-import com.spring.enjoytrip.account.Account;
-import com.spring.enjoytrip.account.AccountService;
-import com.spring.enjoytrip.account.Role;
-import com.spring.enjoytrip.auth.AuthenticationRequest;
-import com.spring.enjoytrip.auth.AuthenticationResult;
-
-import static org.springframework.security.core.authority.AuthorityUtils.createAuthorityList;
+import com.trip.back.account.Account;
+import com.trip.back.account.AccountService;
+import com.trip.back.account.Role;
+import com.trip.back.auth.dto.AuthenticationRequest;
+import com.trip.back.auth.dto.AuthenticationResult;
 
 
 public class JwtAuthenticationProvider implements AuthenticationProvider{
@@ -31,8 +31,9 @@ public class JwtAuthenticationProvider implements AuthenticationProvider{
 
 
 	  @Override
-	  public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-	    JwtAuthenticationToken authenticationToken = (JwtAuthenticationToken) authentication;
+	  public Authentication authenticate(Authentication authentication) throws AuthenticationException{
+		  
+		  JwtAuthenticationToken authenticationToken = (JwtAuthenticationToken) authentication;
 	    return processUserAuthentication(authenticationToken.authenticationRequest());
 	  }
 
@@ -43,8 +44,8 @@ public class JwtAuthenticationProvider implements AuthenticationProvider{
 	      JwtAuthenticationToken authenticated =
 
 	        new JwtAuthenticationToken(new JwtAuthentication(account.getId(), account.getNickname(), account.getEmail()), null, createAuthorityList(Role.USER.value()));
-
-	      String apiToken = account.newApiToken(jwt, new String[]{Role.USER.value()});
+	      String apiToken = account.newApiToken(jwt, new String[] {Role.USER.value()});
+	      
 	      authenticated.setDetails(new AuthenticationResult(apiToken, account));
 //	      authenticated.setDetails(account);
 	      return authenticated;
