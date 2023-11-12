@@ -20,3 +20,6 @@ jwt:
     issuer: social_server
     clientSecret: Rel3Bjce2MajBo09qgkNgYaTuzvJe8iwnBFhsDS5
     expirySeconds: 0
+
+api:
+  key: ${api.key}
