@@ -30,6 +30,11 @@ public class AttractionController {
 			return ResponseEntity.ok(attractionService.selectByRegionAndContentType(sido, gugun, contentType));
 		}else if(sido != null && gugun != null) {
 			return ResponseEntity.ok(attractionService.selectByRegion(sido, gugun));
+			
+		}else if(sido != null && contentType != null) {
+			return ResponseEntity.ok(attractionService.selectBySidoAndContentType(sido, contentType));
+		}else if(contentType != null) {
+			return ResponseEntity.ok(attractionService.selectByContentType(contentType));
 		}else if(sido != null) {
 			return ResponseEntity.ok(attractionService.selectBySido(sido));
 		}else {

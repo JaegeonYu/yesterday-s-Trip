@@ -11,14 +11,23 @@ import lombok.RequiredArgsConstructor;
 public class AttractionService {
 	private final AttractionMapper attractionRepository;
 	
-	public List<AttractionInfo> selectByRegionAndContentType(int sido, int gugun, Long contentType){
+	public List<AttractionInfo> selectByRegionAndContentType(Integer sido, Integer gugun, Long contentType){
 		return attractionRepository.selectBySidoAndGugunAndContentType(sido, gugun, contentType);
 	}
-	public List<AttractionInfo> selectByRegion(int sido, int gugun){
+	public List<AttractionInfo> selectByRegion(Integer sido, Integer gugun){
 		return attractionRepository.selectBySidoAndGugun(sido, gugun);
 	}
 	
-	public List<AttractionInfo> selectBySido(int sido){
+	public List<AttractionInfo> selectBySido(Integer sido){
 		return attractionRepository.selectBySido(sido);
 	}
+	
+	public List<AttractionInfo> selectBySidoAndContentType(Integer sido,  Long contentType){
+		return attractionRepository.selectBySidoAndContentType(sido, contentType);
+	}
+	
+	public List<AttractionInfo> selectByContentType(Long contentType){
+		return attractionRepository.selectByContentType(contentType);
+	}
+
 }
