@@ -24,4 +24,9 @@ jwt:
     expirySeconds: 0
 
 api:
-  key: ${api.key}
+  data:
+    key: ${api.data}
+  naver:
+    clientId: ${api.naver.id}
+    clientSecret: ${api.naver.secret}
+    url : ${api.naver.url}
