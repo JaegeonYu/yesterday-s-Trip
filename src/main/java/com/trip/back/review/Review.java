@@ -2,12 +2,16 @@ package com.trip.back.review;
 
 import java.util.Set;
 
+import com.trip.back.image.Image;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @Getter
+@Setter
 @EqualsAndHashCode(of = "id")
 public class Review {
 	private Long id;
@@ -16,19 +20,17 @@ public class Review {
 	private String title;
 	private String content;
 	private String emotion;
-	private Set<Integer> images;
+	private Set<Image> images;
 	
-	public Review(Long accountId, Long contentId, String title, String content,	Set<Integer> images) {
+	public Review( Long accountId, Long contentId, String title, String content) {
 		super();
 		this.accountId = accountId;
 		this.contentId = contentId;
 		this.title = title;
 		this.content = content;
-		this.images = images;
 	}
 	
-	
-	
-	
-
+	public void updateEmotion(String emotion) {
+		this.emotion = emotion;
+	}
 }

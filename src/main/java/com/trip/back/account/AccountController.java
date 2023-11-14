@@ -5,6 +5,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("api/account")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 @Slf4j
 public class AccountController {
 
@@ -32,6 +34,7 @@ public class AccountController {
 	  
 	  @PostMapping(path = "/join")
 	  public ResponseEntity<JoinResult> join(@RequestBody JoinRequest joinRequest) {
+		  log.info("checkout join {}" , joinRequest);
 	   int result = accountService.join(
 	    	Account.builder().nickname(joinRequest.getNickname())
 	    	.email(joinRequest.getEmail())
