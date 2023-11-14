@@ -1,5 +1,7 @@
 package com.trip.back.account;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
@@ -31,7 +33,7 @@ public class AccountController {
 	  private final AccountMapper AccountMapper;
 	  
 	  @PostMapping(path = "/join")
-	  public ResponseEntity<JoinResult> join(@RequestBody JoinRequest joinRequest) {
+	  public ResponseEntity<JoinResult> join(@RequestBody @Valid JoinRequest joinRequest) {
 		  log.info("checkout join {}" , joinRequest);
 	   int result = accountService.join(
 	    	Account.builder().nickname(joinRequest.getNickname())
