@@ -12,13 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-
 import com.trip.back.account.dto.JoinRequest;
 import com.trip.back.account.dto.JoinResult;
-
 import com.trip.back.security.JwtAuthentication;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,7 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @CrossOrigin("*")
 @Slf4j
-@CrossOrigin("*")
 public class AccountController {
 
 	  private final AccountService accountService;
@@ -59,15 +54,15 @@ public class AccountController {
 	  }
 	  
 	  @GetMapping("/check/email/{email}")
-	  public ApiResult<Boolean> checkEmail(@PathVariable String email){
-		  if(AccountMapper.existsByEmail(email)== 0)return OK(false);
-		  return OK(true);
+	  public ResponseEntity<Boolean> checkEmail(@PathVariable String email){
+		  if(AccountMapper.existsByEmail(email)== 0)return ResponseEntity.ok(false);
+		  return ResponseEntity.ok(true);
 	  }
 	  
 	  @GetMapping("/check/nickname/{nickname}")
-	  public ApiResult<Boolean> checkNickname(@PathVariable String nickname){
-		  if(AccountMapper.existsByNickname(nickname)== 0)return OK(false);
-		  return OK(true);
+	  public ResponseEntity<Boolean> checkNickname(@PathVariable String nickname){
+		  if(AccountMapper.existsByNickname(nickname)== 0)return ResponseEntity.ok(false);
+		  return ResponseEntity.ok(true);
 	  }
 
 }

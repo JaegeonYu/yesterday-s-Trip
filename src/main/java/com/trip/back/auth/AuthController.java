@@ -24,7 +24,6 @@ import lombok.extern.slf4j.Slf4j;
 @CrossOrigin("*")
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin("*")
 public class AuthController {
 	
 	 private final AuthenticationManager authenticationManager;
