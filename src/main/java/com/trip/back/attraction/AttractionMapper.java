@@ -36,4 +36,8 @@ public interface AttractionMapper {
 	@Select("select content_id as contentId, content_type_id as contentTypeId, sido_code as sidoCode, gugun_code as gugunCode,"
 			+ "title, address, tel, zipcode, image_url as imageUrl, latitude, longitude, mlevel from attraction_info where sido_code=#{sido} and content_type_id=#{contentTypeId}")
 	List<AttractionInfo> selectBySidoAndContentType(@Param("sido") int sido, @Param("contentTypeId") Long contentTypeId);
+	
+	@Select("select content_id as contentId, content_type_id as contentTypeId, sido_code as sidoCode, gugun_code as gugunCode,"
+			+ "title, address, tel, zipcode, image_url as imageUrl, latitude, longitude, mlevel from attraction_info where title=#{title}")
+	List<AttractionInfo> selectByTitle(@Param("title") String title);
 }

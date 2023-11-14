@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class AttractionParseController {
-	@Value("${api.key}")
+	@Value("${api.data.key}")
 	private String apiKey;
 	
 	private final AttractionMapper attractionRepository;

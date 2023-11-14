@@ -7,6 +7,7 @@ import java.util.List;
 import javax.management.RuntimeErrorException;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("api/attraction")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class AttractionController {
 	private final AttractionService attractionService;
 	// 시, 구, 콘텐트 타입
@@ -46,7 +48,6 @@ public class AttractionController {
 	public ResponseEntity<List<AttractionInfo>> keword(@PathVariable String keyword){
 		return ResponseEntity.ok(attractionService.selectByTitle(keyword));
 	}
-	
 	
 	
 	

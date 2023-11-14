@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class RegionParseController {
-	@Value("${api.key}")
+	@Value("${api.data.key}")
 	private String apiKey;
 
 	private final GugunMapper gugunReposiotry;
