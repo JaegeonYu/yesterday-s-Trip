@@ -55,6 +55,11 @@ public class SecurityConfig {
 				.antMatchers("/api/auth").permitAll()
 				.antMatchers("/api/account/join").permitAll()
 				.antMatchers("/api/account/check/**").permitAll()
+
+//				.antMatchers("/api/parse/**").permitAll()
+				.antMatchers("/api/attraction/**").permitAll()
+				.antMatchers("/api/region/**").permitAll()
+
 				.antMatchers("/api/**").hasRole(Role.USER.name()).and().formLogin().disable();
 
 		http.addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);

@@ -1,7 +1,6 @@
 package com.trip.back.auth;
 
-import static com.trip.back.dto.ApiResult.OK;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.trip.back.auth.dto.AuthenticationRequest;
 import com.trip.back.auth.dto.AuthenticationResult;
 import com.trip.back.auth.dto.AuthenticationResultDto;
-import com.trip.back.dto.ApiResult;
 import com.trip.back.security.JwtAuthenticationToken;
 
 import lombok.RequiredArgsConstructor;
@@ -23,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin("*")
 @RequiredArgsConstructor
 @Slf4j
 @CrossOrigin("*")
@@ -31,7 +30,7 @@ public class AuthController {
 	 private final AuthenticationManager authenticationManager;
 	 
 	 @PostMapping
-	  public ApiResult<AuthenticationResultDto> authentication(@RequestBody AuthenticationRequest authRequest) {
+	  public ResponseEntity<AuthenticationResultDto> authentication(@RequestBody AuthenticationRequest authRequest) {
 		 log.info("authRequest : {}", authRequest.toString());
 	    try {
 	      JwtAuthenticationToken authToken = new JwtAuthenticationToken(authRequest.getPrincipal(), authRequest.getCredentials());
@@ -39,7 +38,7 @@ public class AuthController {
 	      Authentication authentication = authenticationManager.authenticate(authToken);
 	      SecurityContextHolder.getContext().setAuthentication(authentication);
 	      log.info("after Login detials : {}", authentication.getDetails().toString());
-	      return OK(
+	      return ResponseEntity.ok(
 	        new AuthenticationResultDto((AuthenticationResult)authentication.getDetails())
 	      );
 	    } catch (AuthenticationException e) {
