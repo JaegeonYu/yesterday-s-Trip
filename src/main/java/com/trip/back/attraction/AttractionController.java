@@ -1,11 +1,16 @@
 package com.trip.back.attraction;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import javax.management.RuntimeErrorException;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -17,10 +22,21 @@ public class AttractionController {
 	private final AttractionService attractionService;
 	// 시, 구, 콘텐트 타입
 	
-	@GetMapping("/search/{sido}/{gugun}/{contentType}")
-	public ResponseEntity<List<AttractionInfo>> search(@PathVariable int sido, @PathVariable int gugun, @PathVariable Long contentType){
-		return ResponseEntity.ok(attractionService.selectByRegionAndContentType(sido, gugun, contentType));
+	@GetMapping("/search")
+	public ResponseEntity<List<AttractionInfo>> search(@RequestParam(required = false) Integer sido,
+			@RequestParam(required = false) Integer gugun, @RequestParam(required = false) Long contentType){
+		
+		if(sido != null && gugun != null && contentType != null) {
+			return ResponseEntity.ok(attractionService.selectByRegionAndContentType(sido, gugun, contentType));
+		}else if(sido != null && gugun != null) {
+			return ResponseEntity.ok(attractionService.selectByRegion(sido, gugun));
+		}else if(sido != null) {
+			return ResponseEntity.ok(attractionService.selectBySido(sido));
+		}else {
+			throw new RuntimeException();
+		}
 	}
+	
 	
 	
 	
