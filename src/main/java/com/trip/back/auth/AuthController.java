@@ -1,5 +1,7 @@
 package com.trip.back.auth;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -29,7 +31,7 @@ public class AuthController {
 	 private final AuthenticationManager authenticationManager;
 	 
 	 @PostMapping
-	  public ResponseEntity<AuthenticationResultDto> authentication(@RequestBody AuthenticationRequest authRequest) {
+	  public ResponseEntity<AuthenticationResultDto> authentication(@RequestBody @Valid AuthenticationRequest authRequest) {
 		 log.info("authRequest : {}", authRequest.toString());
 	    try {
 	      JwtAuthenticationToken authToken = new JwtAuthenticationToken(authRequest.getPrincipal(), authRequest.getCredentials());
