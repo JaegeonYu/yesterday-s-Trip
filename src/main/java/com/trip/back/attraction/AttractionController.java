@@ -42,6 +42,11 @@ public class AttractionController {
 		}
 	}
 	
+	@GetMapping("/{keyword}")
+	public ResponseEntity<List<AttractionInfo>> keword(@PathVariable String keyword){
+		return ResponseEntity.ok(attractionService.selectByTitle(keyword));
+	}
+	
 	
 	
 	
