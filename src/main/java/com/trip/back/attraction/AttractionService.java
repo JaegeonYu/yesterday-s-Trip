@@ -29,5 +29,9 @@ public class AttractionService {
 	public List<AttractionInfo> selectByContentType(Long contentType){
 		return attractionRepository.selectByContentType(contentType);
 	}
+	
+	public List<AttractionInfo> selectByTitle(String title){
+		return attractionRepository.selectByTitle(title);
+	}
 
 }
