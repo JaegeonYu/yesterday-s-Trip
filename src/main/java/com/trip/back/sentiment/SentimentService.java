@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.trip.back.review.Emotion;
 
 import org.springframework.http.*;
 
@@ -32,7 +33,7 @@ public class SentimentService {
 	
 	private final ObjectMapper objectMapper;
 	
-	public String makeEmotion(String content) throws JsonProcessingException {
+	public Emotion makeEmotion(String content) throws JsonProcessingException {
 	
 		HttpHeaders header = new HttpHeaders();
 		header.add("X-NCP-APIGW-API-KEY-ID", clientId);
@@ -48,9 +49,8 @@ public class SentimentService {
 		
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		
-		Map<String, Object> ha = objectMapper.readValue(exchange.getBody(), HashMap.class);
-		Map<String, Object> ha1 = (Map<String, Object>) ha.get("document");
-		log.info("response result : {}", ha1.get("sentiment"));
-		return (String) ha1.get("sentiment");
+		ApiResult response = objectMapper.readValue(exchange.getBody(), ApiResult.class);
+		log.info("response result : {}", response);
+		return Emotion.of(response.getDocument().getSentiment());
 	}
 }
