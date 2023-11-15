@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -20,6 +22,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.trip.back.attraction.AttractionInfo;
 import com.trip.back.attraction.AttractionMapper;
+import com.trip.back.image.S3Uploader;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +36,7 @@ public class AttractionParseController {
 	private String apiKey;
 	
 	private final AttractionMapper attractionRepository;
+	private final S3Uploader upload;
 	
 	@GetMapping("/attraction/{contentType}")
 	public ResponseEntity<String> region(@PathVariable String contentType) throws IOException{
@@ -128,5 +132,21 @@ public class AttractionParseController {
          }
 	        
 	        return ResponseEntity.ok("ok");
+	}
+	
+	@GetMapping("/image")
+	public ResponseEntity<?> check() throws IOException{
+		System.out.println(upload.uploadMy());
+		return ResponseEntity.ok("image check");
+	}
+	
+	@PostMapping("/image")
+	public ResponseEntity<?> check(MultipartFile uploadImages[]) throws IOException{
+		if(uploadImages != null) {
+			for(MultipartFile image : uploadImages) {
+				upload.upload(image);
+			}
+		}
+		return ResponseEntity.ok("image check");
 	}
 }

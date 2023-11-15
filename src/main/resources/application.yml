@@ -37,8 +37,8 @@ api:
   data:
     key: ${api.data}
   naver:
-    clientId: ${api.naver.id}
-    clientSecret: ${api.naver.secret}
+    id: ${api.naver.id}
+    secret: ${api.naver.secret}
     url : ${api.naver.url}
   s3:
     id: ${api.s3.id}

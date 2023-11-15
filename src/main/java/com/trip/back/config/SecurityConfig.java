@@ -55,7 +55,7 @@ public class SecurityConfig {
 				.antMatchers("/api/auth").permitAll()
 				.antMatchers("/api/account/join").permitAll()
 				.antMatchers("/api/account/check/**").permitAll()
-//				.antMatchers("/api/parse/**").permitAll()
+				.antMatchers("/api/parse/**").permitAll()
 				.antMatchers("/api/attraction/**").permitAll()
 				.antMatchers("/api/region/**").permitAll()
 				.antMatchers("/api/s3/**").permitAll()
