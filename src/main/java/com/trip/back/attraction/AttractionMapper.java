@@ -38,6 +38,6 @@ public interface AttractionMapper {
 	List<AttractionInfo> selectBySidoAndContentType(@Param("sido") int sido, @Param("contentTypeId") Long contentTypeId);
 	
 	@Select("select content_id as contentId, content_type_id as contentTypeId, sido_code as sidoCode, gugun_code as gugunCode,"
-			+ "title, address, tel, zipcode, image_url as imageUrl, latitude, longitude, mlevel from attraction_info where title=#{title}")
+			+ "title, address, tel, zipcode, image_url as imageUrl, latitude, longitude, mlevel from attraction_info where title like concat ('%', #{title}, '%')")
 	List<AttractionInfo> selectByTitle(@Param("title") String title);
 }
