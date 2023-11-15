@@ -24,6 +24,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.GenericFilterBean;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.trip.back.security.Jwt.Claims;
 
 
@@ -59,7 +60,8 @@ public class JwtAuthenticationTokenFilter extends GenericFilterBean{
 				try {
 					Jwt.Claims claims = verify(authorizationToken);
 					
-					if(canRefresh(claims, 6000 * 10)) {
+					if(canRefresh(claims, 300 * 1000)) {
+						System.out.println("canRefresh : " + jwt.refreshToken(authorizationToken));
 						String refreshedToken = jwt.refreshToken(authorizationToken);
 						res.setHeader(headerKey, refreshedToken);
 					}

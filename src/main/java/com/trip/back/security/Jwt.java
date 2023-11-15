@@ -32,6 +32,7 @@ public final class Jwt {
 	    this.algorithm = Algorithm.HMAC512(clientSecret);
 	    this.jwtVerifier = com.auth0.jwt.JWT.require(algorithm)
 	      .withIssuer(issuer)
+	      .acceptLeeway(expirySeconds)
 	      .build();
 	  }
 

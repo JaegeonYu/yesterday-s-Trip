@@ -15,11 +15,9 @@ import lombok.Setter;
 @Setter
 public class JoinRequest {
 	@NotBlank
-	@Max(value = 16)
 	private String nickname;
 	
 	@NotBlank
-	@Max(value = 20)
 	private String password;
 	
 	@NotBlank
@@ -28,10 +26,13 @@ public class JoinRequest {
 
 	protected JoinRequest() {
 	}
+	
 
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).append("nickname", nickname)
 				.append("password", password).append("email", email).toString();
 	}
+
+
 }
