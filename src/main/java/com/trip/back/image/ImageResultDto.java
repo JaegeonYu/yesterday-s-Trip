@@ -6,15 +6,18 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class Image {
-	private Long id;
+public class ImageResultDto {
+	private String uuid;
 	private Long reviewId;
-	private String saveFile;
+	private String fileURL;
+	
+	
 	
 	@Builder
-	public Image(Long reviewId, String saveFile) {
+	public ImageResultDto(Long reviewId, String uuid , String fileURL) {
 		super();
 		this.reviewId = reviewId;
-		this.saveFile = saveFile;
+		this.fileURL = fileURL;
+		this.uuid = uuid;
 	}
 }
