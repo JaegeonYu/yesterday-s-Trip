@@ -5,6 +5,16 @@ spring:
       password: ${db.password}
   thymeleaf:
     check-template-location: false
+  servlet:
+    multipart:
+      enabled: true
+      location: c:/ssafy/temp
+      max-request-size: 30MB
+      max-file-size: 10MB
+
+com.upload.path: c:/ssafy/upload
+        
+        
     
 mybatis:
   mapper-locations: classpath:mappers/**/*.xml
@@ -18,10 +28,10 @@ logging:
 
 jwt:
   token:
-    header: api_key
+    header: Authorization
     issuer: social_server
     clientSecret: Rel3Bjce2MajBo09qgkNgYaTuzvJe8iwnBFhsDS5
-    expirySeconds: 0
+    expirySeconds: 600
 
 api:
   data:
@@ -30,3 +40,6 @@ api:
     clientId: ${api.naver.id}
     clientSecret: ${api.naver.secret}
     url : ${api.naver.url}
+  s3:
+    id: ${api.s3.id}
+    secret: ${api.s3.secret}
