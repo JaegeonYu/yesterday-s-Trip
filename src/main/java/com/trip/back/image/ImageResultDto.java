@@ -11,8 +11,6 @@ public class ImageResultDto {
 	private Long reviewId;
 	private String fileURL;
 	
-	
-	
 	@Builder
 	public ImageResultDto(Long reviewId, String uuid , String fileURL) {
 		super();

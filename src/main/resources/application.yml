@@ -43,3 +43,4 @@ api:
   s3:
     id: ${api.s3.id}
     secret: ${api.s3.secret}
+    url: ${api.s3.url}

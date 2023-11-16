@@ -25,7 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("api/account")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 @Slf4j
 public class AccountController {
 
@@ -33,7 +32,7 @@ public class AccountController {
 	  private final AccountMapper AccountMapper;
 	  
 	  @PostMapping(path = "/join")
-	  public ResponseEntity<JoinResult> join(@RequestBody @Valid JoinRequest joinRequest) {
+	  public ResponseEntity<?> join(@RequestBody @Valid JoinRequest joinRequest) {
 		  log.info("checkout join {}" , joinRequest);
 	   int result = accountService.join(
 	    	Account.builder().nickname(joinRequest.getNickname())
@@ -42,9 +41,7 @@ public class AccountController {
 	    	.build()
 	    );
 	   
-	    return ResponseEntity.ok(
-	      new JoinResult("hello")
-	    );
+	    return ResponseEntity.ok().build();
 	  }
 	  
 	  

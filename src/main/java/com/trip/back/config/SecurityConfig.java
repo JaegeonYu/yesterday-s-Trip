@@ -11,6 +11,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.trip.back.account.AccountService;
 import com.trip.back.account.Role;
@@ -55,16 +58,31 @@ public class SecurityConfig {
 				.antMatchers("/api/auth").permitAll()
 				.antMatchers("/api/account/join").permitAll()
 				.antMatchers("/api/account/check/**").permitAll()
-				.antMatchers("/api/parse/**").permitAll()
+//				.antMatchers("/api/parse/**").permitAll()
 				.antMatchers("/api/attraction/**").permitAll()
+				.antMatchers("/api/review/list/**").permitAll()
 				.antMatchers("/api/region/**").permitAll()
 				.antMatchers("/api/s3/**").permitAll()
 				.antMatchers("/api/**").hasRole(Role.USER.name()).and().formLogin().disable();
+		
+		http.cors();
 
 		http.addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
-
 	}
+	
+	 @Bean
+	    public CorsConfigurationSource corsConfigurationSource() {
+	        CorsConfiguration configuration = new CorsConfiguration();
+	        configuration.addAllowedOrigin("*"); // 허용할 Origin (모든 Origin 허용)
+	        configuration.addAllowedMethod("*"); // 모든 HTTP 메소드 허용
+	        configuration.addAllowedHeader("*"); // 모든 헤더 허용
+
+	        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	        source.registerCorsConfiguration("/**", configuration);
+	        
+	        return source;
+	    }
 
 }

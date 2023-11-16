@@ -19,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("api/attraction")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class AttractionController {
 	private final AttractionService attractionService;
 	// 시, 구, 콘텐트 타입

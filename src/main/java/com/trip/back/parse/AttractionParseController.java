@@ -133,20 +133,4 @@ public class AttractionParseController {
 	        
 	        return ResponseEntity.ok("ok");
 	}
-	
-	@GetMapping("/image")
-	public ResponseEntity<?> check() throws IOException{
-		System.out.println(upload.uploadMy());
-		return ResponseEntity.ok("image check");
-	}
-	
-	@PostMapping("/image")
-	public ResponseEntity<?> check(MultipartFile uploadImages[]) throws IOException{
-		if(uploadImages != null) {
-			for(MultipartFile image : uploadImages) {
-				upload.upload(image);
-			}
-		}
-		return ResponseEntity.ok("image check");
-	}
 }
