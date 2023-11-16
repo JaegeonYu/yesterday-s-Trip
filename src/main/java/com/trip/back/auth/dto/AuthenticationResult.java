@@ -7,34 +7,32 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.trip.back.account.Account;
 
+import lombok.Getter;
 
 
+@Getter
 public class AuthenticationResult {
 
 	  private final String apiToken;
-
+	  private final String refreshToken;
 	  private final Account account;
 
-	  public AuthenticationResult(String apiToken, Account account) {
+	  public AuthenticationResult(String apiToken, String refreshToken, Account account) {
 	    checkArgument(apiToken != null, "apiToken must be provided.");
 	    checkArgument(account != null, "user must be provided.");
 
 	    this.apiToken = apiToken;
+	    this.refreshToken = refreshToken;
 	    this.account = account;
 	  }
 
-	  public String getApiToken() {
-	    return apiToken;
-	  }
 
-	  public Account getAccount() {
-	    return account;
-	  }
 
 	  @Override
 	  public String toString() {
 	    return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
 	      .append("apiToken", apiToken)
+	      .append("refreshToekn", refreshToken)
 	      .append("account", account)
 	      .toString();
 	  }

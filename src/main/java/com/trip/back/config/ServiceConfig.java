@@ -11,6 +11,6 @@ public class ServiceConfig {
 	
 	  @Bean
 	  public Jwt jwt(JwtTokenConfig jwtTokenConfig) {
-	    return new Jwt(jwtTokenConfig.getIssuer(), jwtTokenConfig.getClientSecret(), jwtTokenConfig.getExpirySeconds());
+	    return new Jwt(jwtTokenConfig.getIssuer(), jwtTokenConfig.getClientSecret(), jwtTokenConfig.getExpirySeconds(), jwtTokenConfig.getRefreshExpirySeconds());
 	  }
 }

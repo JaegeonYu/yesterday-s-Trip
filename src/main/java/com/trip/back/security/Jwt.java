@@ -24,11 +24,15 @@ public final class Jwt {
 	  private final Algorithm algorithm;
 
 	  private final JWTVerifier jwtVerifier;
+	  
+	  private final int refreshExpirySeconds;
 
-	  public Jwt(String issuer, String clientSecret, int expirySeconds) {
+
+	  public Jwt(String issuer, String clientSecret, int expirySeconds, int refreshExpirySeconds) {
 	    this.issuer = issuer;
 	    this.clientSecret = clientSecret;
 	    this.expirySeconds = expirySeconds;
+	    this.refreshExpirySeconds = refreshExpirySeconds;
 	    this.algorithm = Algorithm.HMAC512(clientSecret);
 	    this.jwtVerifier = com.auth0.jwt.JWT.require(algorithm)
 	      .withIssuer(issuer)
@@ -50,6 +54,22 @@ public final class Jwt {
 	    builder.withArrayClaim("roles", claims.roles);
 	    return builder.sign(algorithm);
 	  }
+	  
+	  public String newRefreshToken(Claims claims) {
+		    Date now = new Date();
+		    JWTCreator.Builder builder = com.auth0.jwt.JWT.create();
+		    builder.withIssuer(issuer);
+		    builder.withIssuedAt(now);
+		    if (expirySeconds > 0) {
+		      builder.withExpiresAt(new Date(now.getTime() + refreshExpirySeconds * 1_000L));
+		    }
+		    
+		    builder.withClaim("userKey", claims.userKey);
+		    builder.withClaim("nickname", claims.nickname);
+		    builder.withClaim("email", claims.email);
+		    builder.withArrayClaim("roles", claims.roles);
+		    return builder.sign(algorithm);
+		  }
 
 	  public String refreshToken(String token) throws JWTVerificationException {
 	    Claims claims = verify(token);
@@ -83,8 +103,8 @@ public final class Jwt {
 	  }
 
 	  static public class Claims {
-	    Long userKey;
-	    String email;
+	    public Long userKey;
+	    public String email;
 	    String nickname;
 	    String[] roles;
 	    Date iat;

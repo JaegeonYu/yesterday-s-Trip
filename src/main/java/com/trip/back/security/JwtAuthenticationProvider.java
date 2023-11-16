@@ -45,8 +45,8 @@ public class JwtAuthenticationProvider implements AuthenticationProvider{
 
 	        new JwtAuthenticationToken(new JwtAuthentication(account.getId(), account.getNickname(), account.getEmail()), null, createAuthorityList(Role.USER.value()));
 	      String apiToken = account.newApiToken(jwt, new String[] {Role.USER.value()});
-	      
-	      authenticated.setDetails(new AuthenticationResult(apiToken, account));
+	      String refreshToken = account.newRefreshApiToken(jwt,new String[] {Role.USER.value()});
+	      authenticated.setDetails(new AuthenticationResult(apiToken, refreshToken, account));
 //	      authenticated.setDetails(account);
 	      return authenticated;
 	    } catch(Exception e) {
