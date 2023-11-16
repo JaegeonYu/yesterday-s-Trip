@@ -39,9 +39,8 @@ import lombok.extern.slf4j.Slf4j;
 public class AuthController {
 	
 	 private final AuthenticationManager authenticationManager;
-	 private final TokenMapper tokenRepository;
-	 private final AccountMapper accountRepository;
-	 private final Jwt jwt;
+	 private final TokenService tokenService;
+
 	 
 	 @PostMapping
 	  public ResponseEntity<AuthenticationResultDto> authentication(@RequestBody @Valid AuthenticationRequest authRequest) {
@@ -65,14 +64,8 @@ public class AuthController {
 	 public ResponseEntity<AccessRefreshDto> refresh(HttpServletRequest request){
 		 HttpStatus status = HttpStatus.ACCEPTED;
 		 String token = request.getHeader("refreshToken");
-		 Jwt.Claims claims = jwt.verify(token);
-		 if(token.equals(tokenRepository.findByAccountId(claims.userKey).getRefresh())){
-			 Account account = accountRepository.findByEmail(claims.email);
-			 String apiToken = account.newApiToken(jwt,  new String[] {Role.USER.value()});
-			 return ResponseEntity.ok(new AccessRefreshDto(apiToken));
-		 }
-		
-		throw new RuntimeException();
+		 
+		 return ResponseEntity.ok(new AccessRefreshDto(tokenService.refreshAccess(token)));
 	 }
 	 
 	 
