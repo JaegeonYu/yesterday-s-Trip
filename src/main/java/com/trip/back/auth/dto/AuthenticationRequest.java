@@ -11,8 +11,8 @@ public class AuthenticationRequest {
 	@NotEmpty
 	@Email
 	private String principal;
+	
 	@NotEmpty
-
 	private String credentials;
 
 	protected AuthenticationRequest() {

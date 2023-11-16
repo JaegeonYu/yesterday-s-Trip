@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("api/region")
-@CrossOrigin("*")
 @RequiredArgsConstructor
 public class RegionController {
 	
@@ -29,8 +28,8 @@ public class RegionController {
 	}
 	
 	@GetMapping("/sido/{sidoCode}")
-	public ResponseEntity<List<GugunDto>> gugunAll(@PathVariable int sidoCode){
-		return ResponseEntity.ok(gugunRepository.selectBySidoCode(sidoCode).stream().map(GugunDto::new).collect(Collectors.toList()));
+	public ResponseEntity<List<GugunDto>> gugunAll(@PathVariable String sidoCode){
+		return ResponseEntity.ok(gugunRepository.selectBySidoCode(Integer.parseInt(sidoCode)).stream().map(GugunDto::new).collect(Collectors.toList()));
 	}
 	
 	@GetMapping("/contentType")

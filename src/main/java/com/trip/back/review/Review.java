@@ -1,6 +1,5 @@
 package com.trip.back.review;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -23,15 +22,14 @@ public class Review {
 	private Long contentId;
 	private String content;
 	private Emotion emotion;
-	private Set<ImageResultDto> images;
+	private Set<ImageResultDto> imageURLs;
 	private LocalDateTime createAt;
 	
-	public Review( Long accountId, Long contentId, String content) {
+	public Review(Long accountId, Long contentId, String content) {
 		super();
 		this.accountId = accountId;
 		this.contentId = contentId;
 		this.content = content;
-		this.createAt = LocalDateTime.now();
 	}
 	
 	public void updateEmotion(Emotion emotion) {

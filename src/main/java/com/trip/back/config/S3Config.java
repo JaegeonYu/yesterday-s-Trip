@@ -12,7 +12,7 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
 
 @Configuration
-public class S3Configuration {
+public class S3Config {
 	final String endPoint = "https://kr.object.ncloudstorage.com";
 	final String regionName = "kr-standard";
 	@Value("${api.s3.id}")

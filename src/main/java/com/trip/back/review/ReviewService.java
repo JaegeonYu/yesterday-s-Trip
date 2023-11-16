@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -28,8 +29,6 @@ public class ReviewService {
 	private final ReviewMapper reviewRepository;
 	private final ImageMapper imageRepository;
 	private final S3Uploader s3Upload;
-	@Value("${com.upload.path}")
-	private String uploadPath;
 
 	public void save(Review review, MultipartFile[] uploadImages) throws IOException {
 		// review save
@@ -41,14 +40,36 @@ public class ReviewService {
 				if (uploadImage.getContentType().startsWith("image") == false)
 					throw new RuntimeException();
 				String uuid = UUID.randomUUID().toString();
-				String url = s3Upload.upload(uploadImage, uuid);
 				
+				String url = s3Upload.upload(uploadImage, uuid).get();
 				imageRepository.insert(ImageResultDto.builder().uuid(uuid)
 						.reviewId(review.getId())
 						.fileURL(url)
 						.build());
+				
+//				 	s3Upload.upload(uploadImage, uuid).ifPresent(completeUrl->
+//				 	imageRepository.insert(ImageResultDto.builder().uuid(uuid)
+//							.reviewId(review.getId())
+//							.fileURL(completeUrl)
+//							.build())
+//				 );
+				 	
+
 			}
 		}
+	}
+	
+	public List<ReviewSelectDto> selectByContentId(Long contentId){
+		List<ReviewSelectDto> results = reviewRepository.selectById(contentId);
+		
+		for(ReviewSelectDto result : results) {
+			List<ImageResultDto> images = imageRepository.selectByReviewId(result.getId());
+			for(ImageResultDto image : images) {
+				result.getImageURLs().add(image.getFileURL());
+			}
+		}
+		
+		return results;
 	}
 
 
