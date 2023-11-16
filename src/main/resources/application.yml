@@ -32,6 +32,7 @@ jwt:
     issuer: social_server
     clientSecret: Rel3Bjce2MajBo09qgkNgYaTuzvJe8iwnBFhsDS5
     expirySeconds: 600
+    refreshExpirySeconds: 2592000
 
 api:
   data:

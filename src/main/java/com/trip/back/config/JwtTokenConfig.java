@@ -5,8 +5,13 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Component
 @ConfigurationProperties(prefix="jwt.token")
+@Getter
+@Setter
 public class JwtTokenConfig {
 	 private String header;
 
@@ -15,38 +20,8 @@ public class JwtTokenConfig {
 	  private String clientSecret;
 
 	  private int expirySeconds;
-
-	  public String getHeader() {
-	    return header;
-	  }
-
-	  public void setHeader(String header) {
-	    this.header = header;
-	  }
-
-	  public String getIssuer() {
-	    return issuer;
-	  }
-
-	  public void setIssuer(String issuer) {
-	    this.issuer = issuer;
-	  }
-
-	  public String getClientSecret() {
-	    return clientSecret;
-	  }
-
-	  public void setClientSecret(String clientSecret) {
-	    this.clientSecret = clientSecret;
-	  }
-
-	  public int getExpirySeconds() {
-	    return expirySeconds;
-	  }
-
-	  public void setExpirySeconds(int expirySeconds) {
-	    this.expirySeconds = expirySeconds;
-	  }
+	  
+	  private int refreshExpirySeconds;
 
 	  @Override
 	  public String toString() {

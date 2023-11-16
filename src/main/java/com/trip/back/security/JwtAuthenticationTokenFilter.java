@@ -77,7 +77,6 @@ public class JwtAuthenticationTokenFilter extends GenericFilterBean{
 						authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
 						SecurityContextHolder.getContext().setAuthentication(authentication);
 						log.info("finish : {}" , authentication);
-						
 					}
 				}catch(Exception e) {
 					log.warn("Jwt Process failed : {}", e.getMessage());
@@ -130,6 +129,7 @@ public class JwtAuthenticationTokenFilter extends GenericFilterBean{
 				log.error("Jwt ObtainAuthorization Process error");
 			}
 		}
+		
 		return null;
 	}
 
