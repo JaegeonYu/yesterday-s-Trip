@@ -44,6 +44,11 @@ public class Account {
 	    return jwt.newToken(claims);
 	}
 	
+	public String newRefreshApiToken(Jwt jwt, String[] roles) {
+		Jwt.Claims claims = Jwt.Claims.of(id, email, nickname, roles);
+	    return jwt.newRefreshToken(claims);
+	}
+	
 	public void afterLogin() {
 		this.password = null;
 	}

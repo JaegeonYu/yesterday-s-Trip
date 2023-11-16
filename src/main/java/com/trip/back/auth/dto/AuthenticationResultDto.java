@@ -8,10 +8,13 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.trip.back.account.dto.AccountDto;
 
+import lombok.Data;
 
+@Data
 public class AuthenticationResultDto {
 
 	private String apiToken;
+	private String refreshToken;
 	
 	@JsonIgnore
 	  private AccountDto account;
@@ -23,21 +26,7 @@ public class AuthenticationResultDto {
 	    System.out.println("after copy" + this.account);
 	  }
 
-	  public String getApiToken() {
-	    return apiToken;
-	  }
 
-	  public void setApiToken(String apiToken) {
-	    this.apiToken = apiToken;
-	  }
-
-	  public AccountDto getAccount() {
-	    return this.account;
-	  }
-
-	  public void setAccount(AccountDto account) {
-	    this.account = account;
-	  }
 
 	  @Override
 	  public String toString() {
