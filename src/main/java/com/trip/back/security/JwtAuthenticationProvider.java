@@ -10,18 +10,24 @@ import org.springframework.security.core.AuthenticationException;
 import com.trip.back.account.Account;
 import com.trip.back.account.AccountService;
 import com.trip.back.account.Role;
+import com.trip.back.auth.TokenDto;
+import com.trip.back.auth.TokenMapper;
 import com.trip.back.auth.dto.AuthenticationRequest;
 import com.trip.back.auth.dto.AuthenticationResult;
+
+import lombok.RequiredArgsConstructor;
 
 
 public class JwtAuthenticationProvider implements AuthenticationProvider{
 	 private final Jwt jwt;
-
 	  private final AccountService accountService;
+	  private final TokenMapper tokenRepository;
 
-	  public JwtAuthenticationProvider(Jwt jwt, AccountService accountService) {
+
+	  public JwtAuthenticationProvider(Jwt jwt, AccountService accountService, TokenMapper tokenRepository) {
 	    this.jwt = jwt;
 	    this.accountService = accountService;
+	    this.tokenRepository = tokenRepository;
 	  }
 
 	  @Override
@@ -46,6 +52,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider{
 	        new JwtAuthenticationToken(new JwtAuthentication(account.getId(), account.getNickname(), account.getEmail()), null, createAuthorityList(Role.USER.value()));
 	      String apiToken = account.newApiToken(jwt, new String[] {Role.USER.value()});
 	      String refreshToken = account.newRefreshApiToken(jwt,new String[] {Role.USER.value()});
+	      tokenRepository.insert(TokenDto.builder().accountId(account.getId()).refreshToken(refreshToken).build());
 	      authenticated.setDetails(new AuthenticationResult(apiToken, refreshToken, account));
 //	      authenticated.setDetails(account);
 	      return authenticated;

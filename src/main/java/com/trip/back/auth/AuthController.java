@@ -1,5 +1,7 @@
 package com.trip.back.auth;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -16,16 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.auth0.jwt.interfaces.Claim;
-import com.trip.back.account.Account;
-import com.trip.back.account.AccountMapper;
-import com.trip.back.account.Role;
 import com.trip.back.auth.dto.AuthenticationRequest;
 import com.trip.back.auth.dto.AuthenticationResult;
 import com.trip.back.auth.dto.AuthenticationResultDto;
-import com.trip.back.auth.dto.RefreshRequest;
-import com.trip.back.security.Jwt;
-import com.trip.back.security.Jwt.Claims;
 import com.trip.back.security.JwtAuthentication;
 import com.trip.back.security.JwtAuthenticationToken;
 
@@ -60,13 +55,24 @@ public class AuthController {
 	    }
 	  }
 	 
-	 @PostMapping("/refresh")
-	 public ResponseEntity<AccessRefreshDto> refresh(HttpServletRequest request){
+	 @PostMapping("/refreshToken")
+	 public ResponseEntity<AccessRefreshDto> refresh(HttpServletRequest request) throws UnsupportedEncodingException{
+		 log.info("check refresh access");
 		 HttpStatus status = HttpStatus.ACCEPTED;
 		 String token = request.getHeader("refreshToken");
 		 
 		 return ResponseEntity.ok(new AccessRefreshDto(tokenService.refreshAccess(token)));
 	 }
+	 
+	 @GetMapping("/logout")
+	 public ResponseEntity<String> refresh(@AuthenticationPrincipal JwtAuthentication authenticaiton){
+		 log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ : {}", authenticaiton);
+		 
+		 tokenService.delete(authenticaiton.id.value());
+		 return ResponseEntity.ok("delete");
+	 }
+	 
+	 
 	 
 	 
 	 @GetMapping("/hello")

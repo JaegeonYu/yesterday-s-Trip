@@ -1,5 +1,6 @@
 package com.trip.back.auth;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.regex.Pattern;
 
@@ -24,11 +25,13 @@ public class TokenService {
 	private final TokenMapper tokenRepository;
 	private final AccountMapper accountRepository;
 	private final Jwt jwt;
-	public String refreshAccess(String token) {
+	
+	public String refreshAccess(String token){
 		String validToken = obtainToken(token);
 		if(validToken != null) {
-			 Jwt.Claims claims = jwt.verify(validToken);
-			 if(validToken.equals(tokenRepository.findByAccountId(claims.userKey).getRefresh())){
+			Jwt.Claims claims = jwt.verify(validToken);
+			TokenDto to = tokenRepository.findByAccountId(claims.userKey);
+			 if(validToken.equals(to.getRefreshToken())){
 				 Account account = accountRepository.findByEmail(claims.email);
 				 String apiToken = account.newApiToken(jwt,  new String[] {Role.USER.value()});
 				 return apiToken;
@@ -53,4 +56,9 @@ public class TokenService {
 		}
 		return null;
 	}
+	
+	public void delete(Long accountId) {
+		tokenRepository.delete(accountId);
+	}
+	
 }

@@ -60,11 +60,11 @@ public class JwtAuthenticationTokenFilter extends GenericFilterBean{
 				try {
 					Jwt.Claims claims = verify(authorizationToken);
 					
-					if(canRefresh(claims, 300 * 1000)) {
-						System.out.println("canRefresh : " + jwt.refreshToken(authorizationToken));
-						String refreshedToken = jwt.refreshToken(authorizationToken);
-						res.setHeader(headerKey, refreshedToken);
-					}
+//					if(canRefresh(claims, 300 * 1000)) {
+//						System.out.println("canRefresh : " + jwt.refreshToken(authorizationToken));
+//						String refreshedToken = jwt.refreshToken(authorizationToken);
+//						res.setHeader(headerKey, refreshedToken);
+//					}
 					
 					Long userKey = claims.userKey;
 					String email = claims.email;

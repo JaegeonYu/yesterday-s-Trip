@@ -17,7 +17,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.trip.back.account.AccountService;
 import com.trip.back.account.Role;
+import com.trip.back.auth.TokenMapper;
+import com.trip.back.security.EntryPointUnauthorizedHandler;
 import com.trip.back.security.Jwt;
+import com.trip.back.security.JwtAccessDeniedHandler;
 import com.trip.back.security.JwtAuthenticationProvider;
 import com.trip.back.security.JwtAuthenticationTokenFilter;
 
@@ -30,6 +33,11 @@ public class SecurityConfig {
 	private final Jwt jwt;
 
 	private final JwtTokenConfig jwtTokenConfig;
+	
+	  private final JwtAccessDeniedHandler accessDeniedHandler;
+
+	  private final EntryPointUnauthorizedHandler unauthorizedHandler;
+	  private final TokenMapper tokenRepository;
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -37,8 +45,8 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	public JwtAuthenticationProvider jwtAuthenticationProvider(Jwt jwt, AccountService accountService) {
-		return new JwtAuthenticationProvider(jwt, accountService);
+	public JwtAuthenticationProvider jwtAuthenticationProvider(Jwt jwt, AccountService accountService, TokenMapper tokenRepository) {
+		return new JwtAuthenticationProvider(jwt, accountService, tokenRepository);
 	}
 
 	@Bean
@@ -53,9 +61,15 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.csrf().disable().headers().disable().sessionManagement()
+		http.csrf().disable().headers().disable()
+		.exceptionHandling()
+		.accessDeniedHandler(accessDeniedHandler)
+		.authenticationEntryPoint(unauthorizedHandler)
+		.and()
+		.sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-				.antMatchers("/api/auth/**").permitAll()
+				.antMatchers("/api/auth/refreshToken").permitAll()
+				.antMatchers("/api/auth").permitAll()
 				.antMatchers("/api/account/**").permitAll()
 //				.antMatchers("/api/parse/**").permitAll()
 				.antMatchers("/api/attraction/**").permitAll()

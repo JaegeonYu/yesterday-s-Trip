@@ -1,18 +1,23 @@
 package com.trip.back.auth;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class TokenDto {
 	private Long id;
-	private String refresh;
+	private String refreshToken;
 	private Long accountId;
 	
 	@Builder
-	public TokenDto(String refresh, Long accountId) {
+	public TokenDto(String refreshToken, Long accountId) {
 		super();
-		this.refresh = refresh;
+		this.refreshToken = refreshToken;
 		this.accountId = accountId;
 	}
 	

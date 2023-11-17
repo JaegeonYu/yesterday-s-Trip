@@ -31,7 +31,7 @@ jwt:
     header: Authorization
     issuer: social_server
     clientSecret: Rel3Bjce2MajBo09qgkNgYaTuzvJe8iwnBFhsDS5
-    expirySeconds: 30
+    expirySeconds: 300
     refreshExpirySeconds: 2592000
 
 api:
