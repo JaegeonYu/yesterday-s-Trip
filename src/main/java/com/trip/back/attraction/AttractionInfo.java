@@ -20,10 +20,11 @@ public class AttractionInfo {
 	private Double latitude;
 	private Double longitude;
 	private String mlevel;
+	private Long totalScore;
 	
 	@Builder
 	public AttractionInfo(Long contentId, Long contentTypeId, int sidoCode, int gugunCode, String title, String address,
-			String tel, String zipcode, String imageUrl, Double latitude, Double longitude, String mlevel) {
+			String tel, String zipcode, String imageUrl, Double latitude, Double longitude, String mlevel, Long totalScore) {
 		super();
 		this.contentId = contentId;
 		this.contentTypeId = contentTypeId;
@@ -37,7 +38,12 @@ public class AttractionInfo {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.mlevel = mlevel;
+		this.totalScore = totalScore;
 	}
 	
+	public Double getAvgScore(Integer count) {
+		if(count == 0)return 0d;
+		return Double.valueOf(Math.round((totalScore / count) * 100) / 100);
+	}
 
 }

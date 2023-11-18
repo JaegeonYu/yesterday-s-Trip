@@ -24,7 +24,7 @@ public class AttractionController {
 	// 시, 구, 콘텐트 타입
 	
 	@GetMapping("/search")
-	public ResponseEntity<List<AttractionInfo>> search(@RequestParam(required = false) Integer sido,
+	public ResponseEntity<List<AttractionResDto>> search(@RequestParam(required = false) Integer sido,
 			@RequestParam(required = false) Integer gugun, @RequestParam(required = false) Long contentType){
 		
 		if(sido != null && gugun != null && contentType != null) {
@@ -44,7 +44,7 @@ public class AttractionController {
 	}
 	
 	@GetMapping("/{keyword}")
-	public ResponseEntity<List<AttractionInfo>> keword(@PathVariable String keyword){
+	public ResponseEntity<List<AttractionResDto>> keword(@PathVariable String keyword){
 		return ResponseEntity.ok(attractionService.selectByTitle(keyword));
 	}
 	
