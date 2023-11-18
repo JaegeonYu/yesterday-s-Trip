@@ -61,9 +61,8 @@ public class AuthController {
 	  }
 	 
 	 @PostMapping("/refreshToken")
-	 public ResponseEntity<AccessRefreshDto> refresh(HttpServletRequest request) throws UnsupportedEncodingException{
+	 public ResponseEntity<AccessRefreshDto> refresh(HttpServletRequest request){
 		 log.info("check refresh access");
-		 HttpStatus status = HttpStatus.ACCEPTED;
 		 String token = request.getHeader("refreshToken");
 		 
 		 return ResponseEntity.ok(new AccessRefreshDto(tokenService.refreshAccess(token)));
