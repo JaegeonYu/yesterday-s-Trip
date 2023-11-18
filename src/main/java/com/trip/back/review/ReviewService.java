@@ -35,17 +35,16 @@ public class ReviewService {
 
 	public void save(Review review, MultipartFile[] uploadImages) throws IOException {
 		// review save
-		log.info("11");
 		reviewRepository.insert(review);
-		log.info("22");
+		// update attraction total score
 		reviewRepository.updateScore(getEmotionScore(review.getEmotion()), review.getContentId());
-		log.info("33");
+
 		// image save
 		if (uploadImages != null) {
-			log.info("44");
+
 			for (MultipartFile uploadImage : uploadImages) {
 				if (uploadImage.getContentType().startsWith("image") == false)
-					throw new RuntimeException();
+					throw new RuntimeException(); // TODO Exception check
 				String uuid = UUID.randomUUID().toString();
 				
 				String url = s3Upload.upload(uploadImage, uuid).get();
