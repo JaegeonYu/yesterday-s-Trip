@@ -1,5 +1,7 @@
 package com.trip.back.auth;
 
+import static org.springframework.beans.BeanUtils.resolveSignature;
+
 import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +42,8 @@ public class AuthController {
 	 @PostMapping
 	  public ResponseEntity<AuthenticationResultDto> authentication(@RequestBody @Valid AuthenticationRequest authRequest) {
 		 log.info("authRequest : {}", authRequest.toString());
+		 
+		 tokenService.ifExistRefresh(authRequest.getPrincipal());
 	    try {
 	      JwtAuthenticationToken authToken = new JwtAuthenticationToken(authRequest.getPrincipal(), authRequest.getCredentials());
 	      
