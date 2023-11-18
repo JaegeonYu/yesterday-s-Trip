@@ -37,6 +37,7 @@ public class AccountController {
 
 	  private final AccountService accountService;
 	  private final AccountMapper AccountMapper;
+
 	 
 	  
 	  @PostMapping(path = "/join")
@@ -51,14 +52,7 @@ public class AccountController {
 	   
 	    return ResponseEntity.ok().build();
 	  }
-	  
-	  
-	  @GetMapping("/hello")
-	  public ResponseEntity<String> hello(@AuthenticationPrincipal JwtAuthentication authentication){
-		  log.info("get auth : {}", SecurityContextHolder.getContext().getAuthentication());
-		  log.info("controller auth : {}", authentication);
-		  return ResponseEntity.ok("hello");
-	  }
+	 
 	  
 	  @GetMapping("/check/email/{email}")
 	  public ResponseEntity<Boolean> checkEmail(@PathVariable String email){
@@ -72,6 +66,7 @@ public class AccountController {
 		  return ResponseEntity.ok(true);
 	  }
 	  
+	  
 	  @GetMapping("/findPass")
 	  public ResponseEntity<?> findPass(@RequestParam String email){
 		  // account password 변환 후 발송
@@ -81,7 +76,8 @@ public class AccountController {
 		  if(account == null) throw new RuntimeException(); // TODO exception
 		  
 		  accountService.updatePass(account);
-		  return ResponseEntity.ok("temp pass update");
+		  
+		  return ResponseEntity.ok("");
 	  }
 
 }

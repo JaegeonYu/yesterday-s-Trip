@@ -17,13 +17,15 @@ public class Account {
     private String email;
     private String nickname;
     private String password;
-    private LocalDateTime joinedAt;
+    private LocalDateTime emailDate;
+    
 
     @Builder
-    public Account(String email, String nickname, String password) {
+    public Account(String email, String nickname, String password, LocalDateTime emailDate) {
         this.email = email;
         this.nickname = nickname;
         this.password = password;
+        this.emailDate = emailDate;
     }
     
     public void passEncode(String encodePassword) {
@@ -49,5 +51,8 @@ public class Account {
 	public void afterLogin() {
 		this.password = null;
 	}
-
+	
+	public boolean canSendEmail() {
+		return this.emailDate.isBefore(LocalDateTime.now().minusHours(1));
+	}
 }

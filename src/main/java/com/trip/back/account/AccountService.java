@@ -73,13 +73,16 @@ public class AccountService {
 	private final ApplicationEventPublisher eventPublisher;
 	
 	public void updatePass(Account account) {
-		 String password = RandomStringUtils.random(10, true, true);
-		accountRepository.updatePassword(passwordEncoder.encode(password), account.getId());
-		
-		  
-		eventPublisher.publishEvent(FindEmailEvent.builder()
-				.password(password)
-				.email(account.getEmail())
-				.build());
+		if(account.canSendEmail()) { // 메일은 한시간에 하나만 가능
+			 String password = RandomStringUtils.random(10, true, true);
+				accountRepository.updatePassword(passwordEncoder.encode(password), account.getId());
+				
+				  
+				eventPublisher.publishEvent(FindEmailEvent.builder()
+						.password(password)
+						.email(account.getEmail())
+						.build());
+		}
+		throw new RuntimeException(); // TODO Exception
 	}
 }
