@@ -36,7 +36,7 @@ public class AttractionParseController {
 	private String apiKey;
 	
 	private final AttractionMapper attractionRepository;
-	private final S3Uploader upload;
+
 	
 	@GetMapping("/attraction/{contentType}")
 	public ResponseEntity<String> region(@PathVariable String contentType) throws IOException{
@@ -86,22 +86,8 @@ public class AttractionParseController {
 	            
 	            
 	            for (JsonElement jsonElement : arr) {
-	            	
 	                JsonObject temp = jsonElement.getAsJsonObject();
-	           
-//	                log.info("error {}" , temp.get("mapy").getAsDouble());
-//  	                log.info("error {}" , temp.get("mapx").getAsDouble());
-//  	                log.info("error {}" , temp.get("addr1").getAsString());
-//	                try{
-//	                	if(temp.get("mapx").getAsString().contains("E")  || temp.get("mapy").getAsString().contains("E")) {
-//	                		log.info(temp.get("mapx").getAsString());
-//	                		continue;
-//	                	}
-//	
-//	                }catch(Exception e) {
-//	                	e.printStackTrace();
-//	                	continue;
-//	                }
+
 	                try {
 	                attractionRepository.insert(
 	                		AttractionInfo.builder()

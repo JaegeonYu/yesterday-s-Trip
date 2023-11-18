@@ -30,4 +30,5 @@ public class ExceptionController {
 		String errorMessage = "Validation failed. " + e.getBindingResult().getAllErrors().get(0).getDefaultMessage();
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
 	}
+	
 }

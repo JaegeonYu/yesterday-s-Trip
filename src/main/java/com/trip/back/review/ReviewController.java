@@ -3,6 +3,7 @@ package com.trip.back.review;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -48,19 +49,12 @@ public class ReviewController {
 		
 		reviewService.save(review, uploadImages);
 		
-
-		log.info("after login auth : {}", authentication);
-		return ResponseEntity.ok("success update review");
+		return new ResponseEntity(HttpStatus.CREATED);
 	}
 	
 	
 	@GetMapping(value = "/list/{attractionId}")
-	public ResponseEntity<?> post(@PathVariable Long attractionId,
-			@AuthenticationPrincipal JwtAuthentication authentication) throws IOException{
-		
-		
-
-		log.info("after login auth : {}", authentication);
+	public ResponseEntity<?> post(@PathVariable Long attractionId) {
 		return ResponseEntity.ok(reviewService.selectByContentId(attractionId));
 	}
 
