@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException.Unauthorized;
 
 import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice
@@ -20,6 +21,7 @@ public class ExceptionController {
 	@ExceptionHandler(ServiceException.class)
 	public ResponseEntity<?> handleServiceException(ServiceException e){
 		// 개발중 비즈니스 로직 상 오류 체크를 위한 반환, 추후 모호한 메세지 반환 예정
+		if(e.getCode() == 401)return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		return ResponseEntity.badRequest().body(e.getMessage());
 	}
 	
