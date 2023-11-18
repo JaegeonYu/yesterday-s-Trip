@@ -1,7 +1,5 @@
 package com.trip.back.auth;
 
-import static org.springframework.beans.BeanUtils.resolveSignature;
-
 import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,10 +17,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException.Unauthorized;
 
 import com.trip.back.auth.dto.AuthenticationRequest;
 import com.trip.back.auth.dto.AuthenticationResult;
 import com.trip.back.auth.dto.AuthenticationResultDto;
+import com.trip.back.exception.ExceptionCode;
+import com.trip.back.exception.ServiceException;
 import com.trip.back.security.JwtAuthentication;
 import com.trip.back.security.JwtAuthenticationToken;
 
@@ -54,15 +55,14 @@ public class AuthController {
 	        new AuthenticationResultDto((AuthenticationResult)authentication.getDetails())
 	      );
 	    } catch (AuthenticationException e) {
-	    	throw new RuntimeException("컨트롤러 로그인 실패");
-//	      throw new UnauthorizedException(e.getMessage());
+	    	throw new ServiceException(ExceptionCode.UNAUTHORIZE);
+
 	    }
 	  }
 	 
 	 @PostMapping("/refreshToken")
-	 public ResponseEntity<AccessRefreshDto> refresh(HttpServletRequest request) throws UnsupportedEncodingException{
+	 public ResponseEntity<AccessRefreshDto> refresh(HttpServletRequest request){
 		 log.info("check refresh access");
-		 HttpStatus status = HttpStatus.ACCEPTED;
 		 String token = request.getHeader("refreshToken");
 		 
 		 return ResponseEntity.ok(new AccessRefreshDto(tokenService.refreshAccess(token)));
@@ -70,7 +70,6 @@ public class AuthController {
 	 
 	 @GetMapping("/logout")
 	 public ResponseEntity<String> refresh(@AuthenticationPrincipal JwtAuthentication authenticaiton){
-		 log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ : {}", authenticaiton);
 		 
 		 tokenService.delete(authenticaiton.id.value());
 		 return ResponseEntity.ok("delete");

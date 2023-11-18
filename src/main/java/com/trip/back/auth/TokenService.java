@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.trip.back.account.Account;
 import com.trip.back.account.AccountMapper;
 import com.trip.back.account.Role;
+import com.trip.back.exception.ExceptionCode;
+import com.trip.back.exception.ServiceException;
 import com.trip.back.security.Jwt;
 
 import lombok.RequiredArgsConstructor;
@@ -37,7 +39,7 @@ public class TokenService {
 				 return apiToken;
 			 }
 		}
-		throw new RuntimeException();
+		throw new ServiceException(ExceptionCode.TOKEN_NOT_FOUND);
 	}
 	
 	private String obtainToken(String token) {
@@ -51,7 +53,7 @@ public class TokenService {
 					return BEARER.matcher(scheme).matches() ? credentails : null;
 				}
 			}catch(Exception e) {
-				log.error("Jwt ObtainAuthorization Process error");
+				throw new ServiceException(ExceptionCode.TOKEN_NOT_OBTAIN);
 			}
 		}
 		return null;
