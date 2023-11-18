@@ -1,18 +1,16 @@
 package com.trip.back.attraction;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import javax.management.RuntimeErrorException;
-
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.trip.back.exception.ExceptionCode;
+import com.trip.back.exception.ServiceException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -39,7 +37,7 @@ public class AttractionController {
 		}else if(sido != null) {
 			return ResponseEntity.ok(attractionService.selectBySido(sido));
 		}else {
-			throw new RuntimeException();
+			throw new ServiceException(ExceptionCode.SEARCH_TYPE_NOT_FOUND);
 		}
 	}
 	

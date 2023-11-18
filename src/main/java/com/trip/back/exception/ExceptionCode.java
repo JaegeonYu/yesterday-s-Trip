@@ -9,6 +9,7 @@ public enum ExceptionCode {
 	CAN_NOT_SEND_MAIL(102, "too fast send email"),
 	TOKEN_NOT_FOUND(200, "token not found"),
 	TOKEN_NOT_OBTAIN(201, "jwt obtain process error"),
+	SEARCH_TYPE_NOT_FOUND(300, "search type not found"),
 	UNAUTHORIZE(401, "credential exception");
 	
 	
