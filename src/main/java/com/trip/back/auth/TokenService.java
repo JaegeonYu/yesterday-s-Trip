@@ -61,4 +61,12 @@ public class TokenService {
 		tokenRepository.delete(accountId);
 	}
 	
+	public void ifExistRefresh(String email) {
+		Account account = accountRepository.findByEmail(email);
+		TokenDto token = tokenRepository.findByAccountId(account.getId());
+		if(token != null) {
+			delete(account.getId());
+		}
+	}
+	
 }
