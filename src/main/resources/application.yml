@@ -1,4 +1,5 @@
 spring:
+  profiles.active: local
   datasource:
       url: jdbc:mysql://${db.url}:${db.port}/workshop?useUnicode=true&characterEncoding=utf8
       username: ${db.username}
@@ -11,6 +12,8 @@ spring:
       location: c:/ssafy/temp
       max-request-size: 30MB
       max-file-size: 10MB
+ 
+      
 
 com.upload.path: c:/ssafy/upload
         

@@ -51,6 +51,8 @@ public class SentimentService {
 		
 		ApiResult response = objectMapper.readValue(exchange.getBody(), ApiResult.class);
 		log.info("response result : {}", response);
+		// TODO emotion + score 반환
+		
 		return Emotion.of(response.getDocument().getSentiment());
 	}
 }

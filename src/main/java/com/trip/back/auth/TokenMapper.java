@@ -9,13 +9,13 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface TokenMapper {
 	
-	@Insert("insert into tokens(refreshToken, account_id) values(#{refreshToken}, #{accountId})")
+	@Insert("insert into tokens(refresh_token, account_id) values(#{refreshToken}, #{accountId})")
 	void insert(TokenDto token);
 	
 	@Delete("delete from tokens where account_id = #{id}")
 	void delete(@Param("id")Long accountId);
 	
-	@Select("select id, refreshToken, account_id as accountId from tokens where account_id = #{id}")
+	@Select("select id, refresh_token as refreshToken, account_id as accountId from tokens where account_id = #{id}")
 	TokenDto findByAccountId(@Param("id")Long accountId);
 	
 }
