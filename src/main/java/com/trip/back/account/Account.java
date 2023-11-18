@@ -17,10 +17,7 @@ public class Account {
     private String email;
     private String nickname;
     private String password;
-    private boolean emailVerified;
-    private String emailCheckToken;
     private LocalDateTime joinedAt;
-    private String bio;
 
     @Builder
     public Account(String email, String nickname, String password) {
