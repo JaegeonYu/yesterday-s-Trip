@@ -18,9 +18,7 @@ public class AccountDto {
 	private String nickname;
 	
 	public AccountDto(Account account) {
-		System.out.println("hello");
-		System.out.println(account);
-//		copyProperties(account, this);
+
 		this.id = account.getId();
 		this.email = account.getEmail();
 		this.nickname = account.getNickname();

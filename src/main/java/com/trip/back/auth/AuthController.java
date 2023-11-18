@@ -1,7 +1,5 @@
 package com.trip.back.auth;
 
-import static org.springframework.beans.BeanUtils.resolveSignature;
-
 import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;

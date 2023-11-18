@@ -5,18 +5,20 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.transaction.annotation.Transactional;
 
 @Mapper
+@Transactional(readOnly = true)
 public interface AccountMapper {
 
     @Insert("insert into accounts(email, nickname, password, email_date) values (#{email} , #{nickname} , #{password}, now())")
     int save(Account account);
 
     @Select("select count(*) from accounts where email = #{email} ")
-    int existsByEmail(String email);
+    int existsByEmail(@Param("email")String email);
 
-
-    int existsByNickname(String nickname);
+    @Select("select count(*) from accounts where nickname = #{nickname} ")
+    int existsByNickname(@Param("nickname")String nickname);
 
     @Select("select id, email, password, email_date emailDate from accounts where email = #{email} ")
     Account findByEmail(String email);
