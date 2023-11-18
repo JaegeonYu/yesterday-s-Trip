@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface ReviewMapper {
@@ -21,4 +22,6 @@ public interface ReviewMapper {
 			+ "accounts a on r.account_id = a.id where r.content_id = #{id};")
 	public List<ReviewSelectDto> selectById(@Param("id")Long contentId);
 	
+	@Update("update attraction_info set total_score = total_score + #{score} where content_id = #{attractionId}")
+	void updateScore(@Param("score")Long score, @Param("attractionId")Long attractionId);
 }

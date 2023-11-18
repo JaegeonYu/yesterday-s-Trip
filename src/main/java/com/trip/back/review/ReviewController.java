@@ -50,7 +50,7 @@ public class ReviewController {
 		
 
 		log.info("after login auth : {}", authentication);
-		return ResponseEntity.ok("h");
+		return ResponseEntity.ok("success update review");
 	}
 	
 	
