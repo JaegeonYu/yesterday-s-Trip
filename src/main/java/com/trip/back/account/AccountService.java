@@ -2,10 +2,14 @@ package com.trip.back.account;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.trip.back.account.event.FindEmailEvent;
+import com.trip.back.mail.EmailMessage;
+import com.trip.back.mail.EmailService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +28,7 @@ public class AccountService {
 	
 	private final AccountMapper accountRepository;
 	private final PasswordEncoder passwordEncoder;
-	private final ApplicationEventPublisher eventPublisher;
+
 	
 	public int join(Account account) {
 		 checkArgument(isNotEmpty(account.getPassword()), "password must be provided.");
@@ -66,10 +70,13 @@ public class AccountService {
 		return account;
 	}
 	
+	private final ApplicationEventPublisher eventPublisher;
+	
 	public void updatePass(Account account) {
 		 String password = RandomStringUtils.random(10, true, true);
 		accountRepository.updatePassword(passwordEncoder.encode(password), account.getId());
 		
+		  
 		eventPublisher.publishEvent(FindEmailEvent.builder()
 				.password(password)
 				.email(account.getEmail())
