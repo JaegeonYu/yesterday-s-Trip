@@ -14,19 +14,13 @@ public interface AccountMapper {
     @Insert("insert into accounts(email, nickname, password, email_date) values (#{email} , #{nickname} , #{password}, now())")
     int save(Account account);
 
-    @Select("select count(*) from accounts where email = #{email} ")
-    int existsByEmail(@Param("email")String email);
-
-    @Select("select count(*) from accounts where nickname = #{nickname} ")
-    int existsByNickname(@Param("nickname")String nickname);
-
     @Select("select id, email, password, email_date emailDate from accounts where email = #{email} ")
     Account findByEmail(String email);
 
     @Select("select  id, email, password, email_date emailDate from accounts where nickname = #{nickname} ")
     Account findByNickname(String nickname);
     
-    @Update("update accounts set password = #{password} where id = #{id}")
+    @Update("update accounts set password = #{password}, email_date = now() where id = #{id}")
     void updatePassword(@Param("password")String password, @Param("id")Long accountId);
     
     

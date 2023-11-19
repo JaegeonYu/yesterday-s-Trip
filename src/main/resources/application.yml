@@ -12,7 +12,9 @@ spring:
       location: c:/ssafy/temp
       max-request-size: 30MB
       max-file-size: 10MB
- 
+  redis:
+    host: localhost
+    port: 6379
       
 
 com.upload.path: c:/ssafy/upload

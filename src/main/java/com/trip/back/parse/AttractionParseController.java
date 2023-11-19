@@ -40,7 +40,8 @@ public class AttractionParseController {
 	
 	@GetMapping("/attraction/{contentType}")
 	public ResponseEntity<String> region(@PathVariable String contentType) throws IOException{
-		 int[] areaCodes = {1, 2, 3, 4, 5, 6, 7, 8, 31, 32};
+//		 int[] areaCodes = {1, 2, 3, 4, 5, 6, 7, 8, 31, 32};
+		int[] areaCodes = {39};
 		 log.info("check parse");
 		 try {for (int areaCode : areaCodes) {
 	            StringBuilder urlBuilder = new StringBuilder("https://apis.data.go.kr/B551011/KorService1/areaBasedList1");
