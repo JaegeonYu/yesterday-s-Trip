@@ -41,7 +41,8 @@ public class RegionParseController {
 
 	@GetMapping("/region")
 	public ResponseEntity<String> region() throws IOException {
-		int[] areaCodes = { 1, 2, 3, 4, 5, 6, 7, 8, 31, 32 };
+//		int[] areaCodes = { 1, 2, 3, 4, 5, 6, 7, 8, 31, 32 };
+		int [] areaCodes = {39};
 		log.info("check parse");
 		for (int areaCode : areaCodes) {
 			StringBuilder urlBuilder = new StringBuilder("https://apis.data.go.kr/B551011/KorService1/areaCode1");

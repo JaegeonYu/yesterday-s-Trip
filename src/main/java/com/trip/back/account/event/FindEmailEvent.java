@@ -7,8 +7,8 @@ import lombok.Getter;
 
 @Getter
 public class FindEmailEvent {
-	private String email;
-	private String password;
+	private final String email;
+	private final String password;
 	
 	@Builder
 	public FindEmailEvent(String email, String password) {

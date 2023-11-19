@@ -13,8 +13,8 @@ public interface AttractionMapper {
 
 	@Insert("insert into attraction_info(content_id, content_type_id,"
 			+ "address, tel, zipcode, image_url, latitude, longitude, mlevel, title, sido_code, gugun_code, total_score)"
-			+ " values(#{contentId}, #{contentTypeId}, #{address}, #{tel}, #{zipcode}, 0"
-			+ "#{imageUrl}, #{latitude}, #{longitude}, #{mlevel}, #{title}, #{sidoCode}, #{gugunCode})")
+			+ " values(#{contentId}, #{contentTypeId}, #{address}, #{tel}, #{zipcode}, "
+			+ "#{imageUrl}, #{latitude}, #{longitude}, #{mlevel}, #{title}, #{sidoCode}, #{gugunCode}, 0)")
 	void insert(AttractionInfo attractionInfo);
 
 	@Select("select content_id as contentId, content_type_id as contentTypeId, sido_code as sidoCode, gugun_code as gugunCode,"

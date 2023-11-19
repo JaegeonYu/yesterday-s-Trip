@@ -21,6 +21,7 @@ public class ExceptionController {
 	@ExceptionHandler(ServiceException.class)
 	public ResponseEntity<?> handleServiceException(ServiceException e){
 		// 개발중 비즈니스 로직 상 오류 체크를 위한 반환, 추후 모호한 메세지 반환 예정
+		log.info("code : {} , service error : {}",e.getCode(),  e.getMessage());
 		if(e.getCode() == 401)return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		return ResponseEntity.badRequest().body(e.getMessage());
 	}

@@ -1,6 +1,7 @@
 package com.trip.back.account;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.trip.back.account.dto.EmailDto;
 import com.trip.back.account.dto.JoinRequest;
 
 import lombok.RequiredArgsConstructor;
@@ -24,7 +26,6 @@ import lombok.extern.slf4j.Slf4j;
 public class AccountController {
 
 	private final AccountService accountService;
-	private final AccountMapper AccountMapper;
 
 	@PostMapping(path = "/join")
 	public ResponseEntity join(@RequestBody @Valid JoinRequest joinRequest) {
@@ -32,25 +33,37 @@ public class AccountController {
 		accountService.join(Account.builder().nickname(joinRequest.getNickname()).email(joinRequest.getEmail())
 				.password(joinRequest.getPassword()).build());
 
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/email/verification-request")
+	public ResponseEntity sendEmail(@RequestParam @Email String email) {
+		
+		accountService.sendCodeToEmail(email);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-
+	
+	@GetMapping("/email/verification")
+	public ResponseEntity verificateEmail(@RequestParam @Email String email, @RequestParam String authCode) {
+		log.info("controller authCode : {}", authCode);
+		return ResponseEntity.ok(accountService.verifiedCode(email, authCode));
+	}
+	
 	@GetMapping("/check/email/{email}")
-	public ResponseEntity<Boolean> checkEmail(@PathVariable String email) {
-		if (AccountMapper.existsByEmail(email) == 0)
-			return ResponseEntity.ok(false);
+	public ResponseEntity<Boolean> checkEmail(@PathVariable @Email
+			String email) {
+		if (accountService.findByEmail(email) == null)return ResponseEntity.ok(false);
 		return ResponseEntity.ok(true);
 	}
 
 	@GetMapping("/check/nickname/{nickname}")
 	public ResponseEntity<Boolean> checkNickname(@PathVariable String nickname) {
-		if (AccountMapper.existsByNickname(nickname) == 0)
-			return ResponseEntity.ok(false);
+		if (accountService.findByNickname(nickname)==null)return ResponseEntity.ok(false);
 		return ResponseEntity.ok(true);
 	}
 
-	@GetMapping("/findPass")
-	public ResponseEntity findPass(@RequestParam String email) {
+	@GetMapping("/find-pass")
+	public ResponseEntity findPass(@RequestParam @Email String email) {
 		accountService.updatePass(email);
 
 		return new ResponseEntity<>(HttpStatus.OK);
