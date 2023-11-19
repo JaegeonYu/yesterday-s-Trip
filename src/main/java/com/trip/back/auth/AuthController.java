@@ -70,14 +70,12 @@ public class AuthController {
 	 
 	 @GetMapping("/logout")
 	 public ResponseEntity<String> refresh(@AuthenticationPrincipal JwtAuthentication authenticaiton){
-		 
+		 log.info("logout aut : {}" , authenticaiton);
 		 tokenService.delete(authenticaiton.id.value());
 		 return ResponseEntity.ok("delete");
 	 }
 	 
-	 
-	 
-	 
+
 	 @GetMapping("/hello")
 	 public ResponseEntity<?> hello(@AuthenticationPrincipal JwtAuthentication authenticaiton){
 		 

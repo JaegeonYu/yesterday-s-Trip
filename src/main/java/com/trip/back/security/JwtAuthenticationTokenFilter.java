@@ -52,7 +52,7 @@ public class JwtAuthenticationTokenFilter extends GenericFilterBean{
 		
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
-		
+		log.info("filter url : {}", req.getRequestURI());
 		if(SecurityContextHolder.getContext().getAuthentication() == null) {
 			String authorizationToken = obtainAuthorizationToken(req);
 			
@@ -73,10 +73,11 @@ public class JwtAuthenticationTokenFilter extends GenericFilterBean{
 					
 					if(userKey != null && email != null && authorities.size() >0) {
 						JwtAuthenticationToken authentication = new JwtAuthenticationToken(new JwtAuthentication(userKey, nickname, email), null, authorities);
-						log.info("auth : {}" , authentication);
+						log.info("check get token filter url : {}", req.getRequestURI());
+						log.info("filter get auth : {}" , authentication);
 						authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
 						SecurityContextHolder.getContext().setAuthentication(authentication);
-						log.info("finish : {}" , authentication);
+						log.info("filter set auth : {}" , authentication);
 					}
 				}catch(Exception e) {
 					log.warn("Jwt Process failed : {}", e.getMessage());
