@@ -117,7 +117,7 @@ public class AccountService {
 	 public boolean verifiedCode(String email, String authCode) {
 	        if(findByEmail(email) != null)throw new ServiceException(ExceptionCode.MEMBER_EXISTS);
 	        String redisAuthCode = redisService.getData(AUTH_CODE_PREFIX + email);
-	        log.info("email : {} verficode : {}", email, redisAuthCode);
+	        log.info("email : {} verficode : {}  clientCode : {}", email, redisAuthCode, authCode);
 	       return redisAuthCode != null && redisAuthCode.equals(authCode);
 
 	        

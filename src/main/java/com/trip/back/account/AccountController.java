@@ -45,6 +45,7 @@ public class AccountController {
 	
 	@GetMapping("/email/verification")
 	public ResponseEntity verificateEmail(@RequestParam @Email String email, @RequestParam String authCode) {
+		log.info("controller authCode : {}", authCode);
 		return ResponseEntity.ok(accountService.verifiedCode(email, authCode));
 	}
 	
