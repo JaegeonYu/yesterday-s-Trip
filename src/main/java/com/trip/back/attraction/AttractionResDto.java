@@ -1,9 +1,11 @@
 package com.trip.back.attraction;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class AttractionResDto {
 	private Long contentId;
 	private Long contentTypeId;
