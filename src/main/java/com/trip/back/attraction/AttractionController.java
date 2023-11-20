@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.trip.back.exception.ExceptionCode;
 import com.trip.back.exception.ServiceException;
+import com.trip.back.region.SidoDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -47,9 +48,14 @@ public class AttractionController {
 		return ResponseEntity.ok(attractionService.selectByTitle(keyword));
 	}
 	
-	@GetMapping("/best")
-	public ResponseEntity<AttractionBestDto> best(@RequestParam Integer sido){
+	@GetMapping("/best/sido/{sidoCode}")
+	public ResponseEntity<AttractionBestDto> best(@PathVariable Integer sido){
 		return ResponseEntity.ok(attractionService.selectBestBySido(sido));
+	}
+	
+	@GetMapping("/best")
+	public ResponseEntity<List<SidoDto>> best(){
+		return ResponseEntity.ok(attractionService.selectBest3Region());
 	}
 	
 	

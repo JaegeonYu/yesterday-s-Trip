@@ -15,7 +15,7 @@ public class Notification {
 	private Long accountId;
 	private String title;
 	private String content;
-	private LocalDateTime creatAt;
+	private LocalDateTime createAt;
 	
 	@Builder
 	public Notification(Long accountId, String title, String content) {

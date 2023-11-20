@@ -76,10 +76,4 @@ public class AuthController {
 	 }
 	 
 
-	 @GetMapping("/hello")
-	 public ResponseEntity<?> hello(@AuthenticationPrincipal JwtAuthentication authenticaiton){
-		 
-		 return ResponseEntity.ok("auth check");
-	 }
-
 }

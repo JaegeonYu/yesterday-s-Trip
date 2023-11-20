@@ -5,6 +5,7 @@ import javax.validation.constraints.Email;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.trip.back.account.dto.EmailDto;
 import com.trip.back.account.dto.JoinRequest;
+import com.trip.back.security.JwtAuthentication;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +28,6 @@ import lombok.extern.slf4j.Slf4j;
 public class AccountController {
 
 	private final AccountService accountService;
-
 	@PostMapping(path = "/join")
 	public ResponseEntity join(@RequestBody @Valid JoinRequest joinRequest) {
 		log.info("checkout join {}", joinRequest);
@@ -64,9 +65,15 @@ public class AccountController {
 
 	@GetMapping("/find-pass")
 	public ResponseEntity findPass(@RequestParam @Email String email) {
-		accountService.updatePass(email);
+		accountService.missPass(email);
 
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-
+	
+	@GetMapping("/check-pass")
+	public ResponseEntity checkPass(@AuthenticationPrincipal JwtAuthentication authentication, @RequestParam String password) {
+		return ResponseEntity.ok(accountService.checkPass(authentication.email, password));
+	}
+	
+	
 }
