@@ -11,16 +11,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public interface AccountMapper {
 
-    @Insert("insert into accounts(email, nickname, password, email_date) values (#{email} , #{nickname} , #{password}, now())")
+    @Insert("insert into accounts(email, nickname, password, email_at) values (#{email} , #{nickname} , #{password}, now())")
     int save(Account account);
 
-    @Select("select id, email, password, nickname, email_date emailDate from accounts where email = #{email} ")
+    @Select("select id, email, password, nickname, email_at emailDate from accounts where email = #{email} ")
     Account findByEmail(String email);
 
-    @Select("select  id, email, password,  nickname, email_date emailDate from accounts where nickname = #{nickname} ")
+    @Select("select  id, email, password,  nickname, email_at emailDate from accounts where nickname = #{nickname} ")
     Account findByNickname(String nickname);
     
-    @Update("update accounts set password = #{password}, email_date = now() where id = #{id}")
+    @Update("update accounts set password = #{password}, email_at = now() where id = #{id}")
     void updatePassword(@Param("password")String password, @Param("id")Long accountId);
     
     

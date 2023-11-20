@@ -52,5 +52,13 @@ public interface AttractionMapper {
 	@Select("select count(*) "
 			+ "from attraction_info as at join review as rv on at.content_id = rv.content_id "
 			+ "where at.content_id = #{attractionId}")
-	Integer countReview(@Param("attractionId") Long attractionId); 
+	Integer countReview(@Param("attractionId") Long attractionId);
+	
+	
+	@Select("select content_id as contentId, content_type_id as contentTypeId, sido_code as sidoCode, gugun_code as gugunCode,"
+			+ "title, address, tel, zipcode, image_url as imageUrl, latitude, longitude, mlevel, "
+			+ "total_score / (select count(*) from attraction_info a join review r on a.content_id = r.content_id where a.content_id = ai.content_id) as avgScore"
+			+ " from attraction_info ai where ai.sido_code = #{sido} order by avgScore desc limit 3")
+	List<AttractionResDto> selectBySidoBestScoreLimit3(@Param("sido") Integer sido);
+	
 }

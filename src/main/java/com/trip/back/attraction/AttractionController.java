@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AttractionController {
 	private final AttractionService attractionService;
+	private final AttractionMapper attractionRepository;
 	// 시, 구, 콘텐트 타입
 	
 	@GetMapping("/search")
@@ -46,6 +47,10 @@ public class AttractionController {
 		return ResponseEntity.ok(attractionService.selectByTitle(keyword));
 	}
 	
+	@GetMapping("/best")
+	public ResponseEntity<AttractionBestDto> best(@RequestParam Integer sido){
+		return ResponseEntity.ok(attractionService.selectBestBySido(sido));
+	}
 	
 	
 }
