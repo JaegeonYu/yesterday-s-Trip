@@ -70,7 +70,7 @@ public class AccountService {
 
 	private final ApplicationEventPublisher eventPublisher;
 
-	public void updatePass(String email) {
+	public void missPass(String email) {
 
 		Account account = accountRepository.findByEmail(email);
 		if (account == null)
@@ -122,4 +122,11 @@ public class AccountService {
 
 	        
 	    }
+	 
+	 public boolean checkPass(String email, String pass) {
+		 Account account = accountRepository.findByEmail(email);
+		 if(account == null) throw new ServiceException(ExceptionCode.MEMBER_NOT_FOUND);
+		 
+		 return passwordEncoder.matches(pass, account.getPassword());
+	 }
 }

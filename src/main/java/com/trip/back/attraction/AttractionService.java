@@ -12,13 +12,18 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.trip.back.region.Sido;
+import com.trip.back.region.SidoDto;
+import com.trip.back.region.SidoMapper;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class AttractionService {
 	private final AttractionMapper attractionRepository;
-
+	private final SidoMapper sidoRepository;
+	
 	public List<AttractionResDto> selectByRegionAndContentType(Integer sido, Integer gugun, Long contentType) {
 		return attractionRepository.selectBySidoAndGugunAndContentType(sido, gugun, contentType).stream()
 				.map(entity -> {
@@ -70,6 +75,29 @@ public class AttractionService {
 		List<AttractionResDto> attractions = attractionRepository.selectBySidoBestScoreLimit3(sido);
 
 		return getBestPath(attractions);
+	}
+	
+	public List<SidoDto> selectBest3Region(){
+		List<AttractionBestDto> regions = new ArrayList<AttractionBestDto>();
+		List<Sido> sidos = sidoRepository.selectAll();
+		
+		for(Sido sido : sidos) {
+			regions.add(selectBestBySido(sido.getSidoCode()));
+		}
+		Collections.sort(regions, new Comparator<AttractionBestDto>() {
+
+			@Override
+			public int compare(AttractionBestDto o1, AttractionBestDto o2) {
+				return Double.compare(o1.getShortestDistance(), o2.getShortestDistance());
+			}
+		});
+		
+		List<SidoDto> bestSido = new ArrayList<SidoDto>();
+		for(int i=0;i<3;i++) {
+			bestSido.add(new SidoDto(new Sido(regions.get(i).getShortestPath().get(0).getSidoCode(), sidoRepository.selectByCode(regions.get(i).getShortestPath().get(0).getSidoCode()))));
+		}
+		
+		return bestSido;
 	}
 	
 	private double distance = Double.MAX_VALUE;

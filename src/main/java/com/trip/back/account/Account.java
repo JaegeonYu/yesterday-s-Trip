@@ -3,6 +3,7 @@ package com.trip.back.account;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -18,6 +19,7 @@ public class Account {
     private String nickname;
     private String password;
     private LocalDateTime emailAt;
+    private List<Roles> roles;
     
 
     @Builder
