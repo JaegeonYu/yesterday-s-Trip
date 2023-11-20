@@ -48,8 +48,8 @@ public class AttractionController {
 	}
 	
 	@GetMapping("/best")
-	public ResponseEntity<List<AttractionResDto>> best(@RequestParam Integer sido){
-		return ResponseEntity.ok(attractionRepository.selectBySidoBestScoreLimit3(sido));
+	public ResponseEntity<AttractionBestDto> best(@RequestParam Integer sido){
+		return ResponseEntity.ok(attractionService.selectBestBySido(sido));
 	}
 	
 	
