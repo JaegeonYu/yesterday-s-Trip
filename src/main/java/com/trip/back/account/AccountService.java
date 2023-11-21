@@ -33,7 +33,7 @@ public class AccountService {
 	private final AccountMapper accountRepository;
 	private final PasswordEncoder passwordEncoder;
 
-	public int join(Account account) {
+	public void join(Account account) {
 		if (findByEmail(account.getEmail()) != null || findByNickname(account.getNickname()) != null)
 			throw new ServiceException(ExceptionCode.MEMBER_EXISTS);
 		checkArgument(isNotEmpty(account.getPassword()), "password must be provided.");
@@ -41,14 +41,17 @@ public class AccountService {
 				"password length must be between 4 and 15 characters.");
 
 		account.passEncode(passwordEncoder.encode(account.getPassword()));
-		return accountRepository.save(account);
+		accountRepository.save(account);
+		accountRepository.saveRole(new Roles(account.getId(), Role.USER.value()));
+		
 	}
 
 
 
 	public Account findByEmail(String email) {
 		 Account account = accountRepository.findByEmail(email);
-		 account.setRoles(accountRepository.getRoles(account.getId()));
+		 log.info("service findByEmail Collection : {}", account);
+//		 account.setRoles(accountRepository.getRoles(account.getId()));
 		return account;
 	}
 	

@@ -1,7 +1,5 @@
 package com.trip.back.account;
 
-import lombok.*;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -9,13 +7,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.trip.back.security.Jwt;
 
-import jdk.jfr.StackTrace;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Getter
-@ToString
 @Setter
+@ToString
 public class Account {
     private Long id;
     private String email;
@@ -26,14 +29,6 @@ public class Account {
     private List<Roles> roles;
     
 
-    @Builder
-    public Account(String email, String nickname, String password, LocalDateTime emailAt) {
-        this.email = email;
-        this.nickname = nickname;
-        this.password = password;
-        this.emailAt = emailAt;
-    }
-    
     public void passEncode(String encodePassword) {
     	this.password = encodePassword;
     }
@@ -60,5 +55,16 @@ public class Account {
 	
 	public boolean canSendEmail() {
 		return this.emailAt.isBefore(LocalDateTime.now().minusHours(1));
+	}
+
+	@Builder
+	public Account(Long id, String email, String nickname, String password, LocalDateTime emailAt, List<Roles> roles) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.nickname = nickname;
+		this.password = password;
+		this.emailAt = emailAt;
+		this.roles = roles;
 	}
 }
