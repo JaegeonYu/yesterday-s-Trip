@@ -1,5 +1,7 @@
 package com.trip.back.attraction;
 
+import com.trip.back.team.AttractionWithContent;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,5 +47,18 @@ public class AttractionInfo {
 		if(count == 0)return 0d;
 		return Double.valueOf(Math.round((totalScore / count) * 100) / 100);
 	}
-
+	
+	public AttractionInfo(AttractionWithContent att) {
+		this.contentTypeId = att.getContentTypeId();
+		this.sidoCode = att.getSidoCode();
+		this.gugunCode = att.getGugunCode();
+		this.title = att.getTitle();
+		this.address = att.getAddress();
+		this.tel = att.getTel();
+		this.zipcode = att.getZipcode();
+		this.imageUrl = att.getImageUrl();
+		this.latitude = att.getLatitude();
+		this.longitude = att.getLongitude();
+		this.mlevel = att.getMlevel();
+	}
 }

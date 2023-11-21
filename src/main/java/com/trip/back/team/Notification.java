@@ -16,6 +16,8 @@ public class Notification {
 	private Long id;
 	private Long accountId;
 	private String title;
+	private String content;
+	private Long contentTypeId;
 	private String keyword;
 	private boolean checked;
 	private LocalDateTime createAt;

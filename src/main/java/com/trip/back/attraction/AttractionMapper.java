@@ -12,9 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Mapper
 public interface AttractionMapper {
 
-	@Insert("insert into attraction_info(content_id, content_type_id,"
+	@Insert("insert into attraction_info(content_type_id,"
 			+ "address, tel, zipcode, image_url, latitude, longitude, mlevel, title, sido_code, gugun_code, total_score)"
-			+ " values(#{contentId}, #{contentTypeId}, #{address}, #{tel}, #{zipcode}, "
+			+ " values( #{contentTypeId}, #{address}, #{tel}, #{zipcode}, "
 			+ "#{imageUrl}, #{latitude}, #{longitude}, #{mlevel}, #{title}, #{sidoCode}, #{gugunCode}, 0)")
 	void insert(AttractionInfo attractionInfo);
 
