@@ -9,16 +9,20 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.trip.back.security.Jwt;
 
+import jdk.jfr.StackTrace;
+
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Getter
 @ToString
+@Setter
 public class Account {
     private Long id;
     private String email;
     private String nickname;
     private String password;
     private LocalDateTime emailAt;
+    @Setter
     private List<Roles> roles;
     
 

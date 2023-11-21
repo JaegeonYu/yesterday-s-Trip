@@ -15,9 +15,9 @@ import com.trip.back.auth.TokenMapper;
 import com.trip.back.auth.dto.AuthenticationRequest;
 import com.trip.back.auth.dto.AuthenticationResult;
 
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 public class JwtAuthenticationProvider implements AuthenticationProvider{
 	 private final Jwt jwt;
 	  private final AccountService accountService;
@@ -46,12 +46,18 @@ public class JwtAuthenticationProvider implements AuthenticationProvider{
 	  private Authentication processUserAuthentication(AuthenticationRequest request) {
 	    try {
 	      Account account = accountService.login(request.getPrincipal(), request.getCredentials());
+	      log.info("login filte account : {}", account);
 	      account.afterLogin();
 	      JwtAuthenticationToken authenticated =
 
 	        new JwtAuthenticationToken(new JwtAuthentication(account.getId(), account.getNickname(), account.getEmail()), null, createAuthorityList(Role.USER.value()));
-	      String apiToken = account.newApiToken(jwt, new String[] {Role.USER.value()});
-	      String refreshToken = account.newRefreshApiToken(jwt,new String[] {Role.USER.value()});
+	      String[] roles = new String[account.getRoles().size()];
+	      for(int i=0;i<roles.length;i++) {
+	    	  roles[i] = account.getRoles().get(i).getRole();
+	      }
+	      
+	      String apiToken = account.newApiToken(jwt, roles);
+	      String refreshToken = account.newRefreshApiToken(jwt,roles);
 	      tokenRepository.insert(TokenDto.builder().accountId(account.getId()).refreshToken(refreshToken).build());
 	      authenticated.setDetails(new AuthenticationResult(apiToken, refreshToken, account));
 //	      authenticated.setDetails(account);

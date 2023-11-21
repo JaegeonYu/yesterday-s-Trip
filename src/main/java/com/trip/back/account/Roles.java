@@ -3,20 +3,20 @@ package com.trip.back.account;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @NoArgsConstructor
 @Getter
+@ToString
 public class Roles {
-	private Long id;
-	private Long accountId;
+	private Long roleId;
+	private Long roleAccountId;
 	private String role;
 	
 	@Builder
-	public Roles(Long accountId, String role) {
+	public Roles(Long roleAccountId, String role) {
 		super();
-		this.accountId = accountId;
+		this.roleAccountId = roleAccountId;
 		this.role = role;
 	}
-	
-	
 }

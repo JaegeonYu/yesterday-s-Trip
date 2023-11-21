@@ -29,7 +29,9 @@ public class TokenService {
 	private final Jwt jwt;
 	
 	public String refreshAccess(String token){
+		log.info("acces token in service : {}", token);
 		String validToken = obtainToken(token);
+		
 		if(validToken != null) {
 			Jwt.Claims claims = jwt.verify(validToken);
 			TokenDto to = tokenRepository.findByAccountId(claims.userKey);
@@ -39,6 +41,7 @@ public class TokenService {
 				 return apiToken;
 			 }
 		}
+		
 		throw new ServiceException(ExceptionCode.TOKEN_NOT_FOUND);
 	}
 	

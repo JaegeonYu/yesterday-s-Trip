@@ -47,7 +47,9 @@ public class AccountService {
 
 
 	public Account findByEmail(String email) {
-		return accountRepository.findByEmail(email);
+		 Account account = accountRepository.findByEmail(email);
+		 account.setRoles(accountRepository.getRoles(account.getId()));
+		return account;
 	}
 	
 	public Account findByNickname(String nickname) {
@@ -79,11 +81,11 @@ public class AccountService {
 //			
 //		}
 		String password = RandomStringUtils.random(10, true, true);
-		accountRepository.updatePassword(passwordEncoder.encode(password), account.getId());
+		accountRepository.updateRandomPassword(passwordEncoder.encode(password), account.getId());
 
 		eventPublisher.publishEvent(FindEmailEvent.builder().password(password).email(account.getEmail()).build());
 
-		throw new ServiceException(ExceptionCode.CAN_NOT_SEND_MAIL);
+//		throw new ServiceException(ExceptionCode.CAN_NOT_SEND_MAIL);
 	}
 	
 	public void sendCodeToEmail(String email) {
@@ -129,4 +131,15 @@ public class AccountService {
 		 
 		 return passwordEncoder.matches(pass, account.getPassword());
 	 }
+
+
+
+	public void changePass(String email, String password) {
+		
+		 Account account = accountRepository.findByEmail(email);
+		 if(account == null) throw new ServiceException(ExceptionCode.MEMBER_NOT_FOUND);
+		 
+		 accountRepository.updatePassword(passwordEncoder.encode(password), account.getId());
+		
+	}
 }

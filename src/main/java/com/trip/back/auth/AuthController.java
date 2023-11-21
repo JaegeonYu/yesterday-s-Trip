@@ -63,7 +63,7 @@ public class AuthController {
 	 @PostMapping("/refreshToken")
 	 public ResponseEntity<AccessRefreshDto> refresh(HttpServletRequest request){
 		 log.info("check refresh access");
-		 String token = request.getHeader("refreshToken");
+		 String token = request.getHeader("Authorization");
 		 
 		 return ResponseEntity.ok(new AccessRefreshDto(tokenService.refreshAccess(token)));
 	 }

@@ -5,6 +5,7 @@ import javax.validation.constraints.Email;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.trip.back.account.dto.EmailDto;
 import com.trip.back.account.dto.JoinRequest;
+import com.trip.back.account.dto.PasswordRequest;
 import com.trip.back.security.JwtAuthentication;
 
 import lombok.RequiredArgsConstructor;
@@ -75,5 +76,12 @@ public class AccountController {
 		return ResponseEntity.ok(accountService.checkPass(authentication.email, password));
 	}
 	
+	@PostMapping("/change-pass")
+	public ResponseEntity changePass(@AuthenticationPrincipal JwtAuthentication authentication, @RequestBody PasswordRequest passwordRequest) {
+		log.info("email : {}  pass : {}" , authentication.email, passwordRequest.getPassword());
+		accountService.changePass(authentication.email, passwordRequest.getPassword());
+		
+		return  new ResponseEntity<>(HttpStatus.OK);
+	}
 	
 }
