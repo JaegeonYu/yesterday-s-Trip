@@ -56,7 +56,10 @@ public class GeoService {
 		// x == longitu , y = latitu
 		log.info("positon : {} ,,{}" , response.getAddresses()[0].getX(), response.getAddresses()[0].getY());
 		
-		return GeoResDto.builder().longitude(response.getAddresses()[0].getX()).latitude(response.getAddresses()[0].getY()).build();
+		return GeoResDto.builder()
+				.longitude(response.getAddresses()[0].getX())
+				.latitude(response.getAddresses()[0].getY())
+				.build();
 	}
 	
 }
