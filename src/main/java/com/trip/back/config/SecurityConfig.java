@@ -77,6 +77,7 @@ public class SecurityConfig {
 				.antMatchers("/api/review/list/**").permitAll()
 				.antMatchers("/api/region/**").permitAll()
 				.antMatchers("/api/s3/**").permitAll()
+				.antMatchers("/api/auth/logout").hasRole(Role.USER.name())
 				.antMatchers("/api/**").hasRole(Role.USER.name()).and().formLogin().disable();
 		
 		http.cors();
