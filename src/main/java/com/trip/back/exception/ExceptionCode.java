@@ -10,6 +10,7 @@ public enum ExceptionCode {
 	NO_SUCH_ALGORITHM(103, " no such algorithm"),
 	TOKEN_NOT_FOUND(200, "token not found"),
 	TOKEN_NOT_OBTAIN(201, "jwt obtain process error"),
+	TEAM_NOT_FOUND(202, "team not found"),
 	SEARCH_TYPE_NOT_FOUND(300, "search type not found"),
 	UNAUTHORIZE(401, "credential exception");
 	
