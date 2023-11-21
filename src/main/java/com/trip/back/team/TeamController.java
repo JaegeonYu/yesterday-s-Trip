@@ -13,15 +13,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.trip.back.attraction.AttractionInfo;
+import com.trip.back.geo.GeoService;
 import com.trip.back.security.JwtAuthentication;
+
+import io.lettuce.core.GeoSearch;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("api/team")
 @RequiredArgsConstructor
+@Slf4j
 public class TeamController {
 	private final TeamService teamService;
+	private final GeoService geoSerivce;
 	
 	@GetMapping
 	public ResponseEntity findTeam(@AuthenticationPrincipal JwtAuthentication authentication){
@@ -31,6 +38,7 @@ public class TeamController {
 	@GetMapping("/{teamId}")
 	public ResponseEntity followTeam(@AuthenticationPrincipal JwtAuthentication authentication,
 			@PathVariable Long teamId) {
+		log.info("follow teamID : {} , accountId : {}", authentication.id.value(), teamId);
 		teamService.addFollow(authentication.id.value(), teamId);
 		return new ResponseEntity(HttpStatus.OK);
 	}
@@ -38,6 +46,7 @@ public class TeamController {
 	@DeleteMapping("/{teamId}")
 	public ResponseEntity unfollowTeam(@AuthenticationPrincipal JwtAuthentication authentication,
 			@PathVariable Long teamId) {
+		log.info("un follow teamID : {} , accountId : {}", authentication.id.value(), teamId);
 		teamService.deleteFollow(authentication.id.value(), teamId);
 		return new ResponseEntity(HttpStatus.OK);
 	}
@@ -54,6 +63,13 @@ public class TeamController {
 			@RequestBody AttractionInfo attraction, @RequestParam Long teamId) {
 		teamService.addAttraction(attraction, teamId);
 		
+		return new ResponseEntity(HttpStatus.OK);
+	}
+	
+	@GetMapping("/find-position")
+	@Secured("ROLE_ADMIN")
+	public ResponseEntity checkPosition(@RequestParam String address) throws JsonProcessingException {
+		geoSerivce.makePositon(address);
 		return new ResponseEntity(HttpStatus.OK);
 	}
 }
