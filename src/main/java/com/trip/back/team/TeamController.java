@@ -69,7 +69,7 @@ public class TeamController {
 	@GetMapping("/find-position")
 	@Secured("ROLE_ADMIN")
 	public ResponseEntity checkPosition(@RequestParam String address) throws JsonProcessingException {
-		geoSerivce.makePositon(address);
-		return new ResponseEntity(HttpStatus.OK);
+		
+		return ResponseEntity.ok(geoSerivce.makePositon(address));
 	}
 }

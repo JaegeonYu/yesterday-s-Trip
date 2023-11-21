@@ -7,7 +7,9 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,8 @@ import com.trip.back.image.ImageMapper;
 import com.trip.back.image.ImageResultDto;
 import com.trip.back.image.S3Uploader;
 import com.trip.back.sentiment.SentimentService;
-
+import static java.util.concurrent.CompletableFuture.supplyAsync;
+import io.netty.util.concurrent.CompleteFuture;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,13 +55,31 @@ public class ReviewService {
 						.reviewId(review.getId())
 						.fileURL(url)
 						.build());
-				
-//				 	s3Upload.upload(uploadImage, uuid).ifPresent(completeUrl->
-//				 	imageRepository.insert(ImageResultDto.builder().uuid(uuid)
+//				CompletableFuture<Optional<String>> multiJob = CompletableFuture.supplyAsync(()->{
+//					try {
+//						return s3Upload.upload(uploadImage, uuid);
+//					} catch (IOException e1) {
+//						// TODO Auto-generated catch block
+//						e1.printStackTrace();
+//					}
+//					return null;
+//				});
+//				try {
+//					Optional<String> url = multiJob.get();
+//					url.ifPresent(uploadUU->imageRepository.insert(ImageResultDto.builder().uuid(uuid)
+//							.reviewId(review.getId())
+//							.fileURL(uploadUU)
+//							.build()));
+//				}catch (Exception e) {
+//					e.printStackTrace();
+//				}
+								
+//					s3Upload.upload(uploadImage, uuid).ifPresent(completeUrl->
+//				 	supplyAsync(()-> imageRepository.insert(ImageResultDto.builder().uuid(uuid)
 //							.reviewId(review.getId())
 //							.fileURL(completeUrl)
-//							.build())
-//				 );
+//							.build())));	
+				
 				 	
 
 			}

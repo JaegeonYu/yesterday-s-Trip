@@ -32,7 +32,7 @@ public class GeoService {
 	
 	private final ObjectMapper objectMapper;
 	
-	public Double[] makePositon(String address) throws JsonProcessingException {
+	public GeoResDto makePositon(String address) throws JsonProcessingException {
 		
 		HttpHeaders header = new HttpHeaders();
 		header.add("X-NCP-APIGW-API-KEY-ID", clientId);
@@ -53,8 +53,10 @@ public class GeoService {
 		GeoResponse response = objectMapper.readValue(exchange.getBody(), GeoResponse.class);
 		log.info("response result : {}", response);
 		// TODO emotion + score 반환
+		// x == longitu , y = latitu
 		log.info("positon : {} ,,{}" , response.getAddresses()[0].getX(), response.getAddresses()[0].getY());
-		return null;
+		
+		return GeoResDto.builder().longitude(response.getAddresses()[0].getX()).latitude(response.getAddresses()[0].getY()).build();
 	}
 	
 }
