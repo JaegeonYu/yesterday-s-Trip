@@ -46,6 +46,7 @@ api:
     id: ${api.naver.id}
     secret: ${api.naver.secret}
     url : ${api.naver.url}
+    map.url: ${api.naver.map.url}
   s3:
     id: ${api.s3.id}
     secret: ${api.s3.secret}
