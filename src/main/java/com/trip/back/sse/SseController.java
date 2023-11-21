@@ -25,7 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("api/sse")
 public class SseController {
 	  private final SseEmitters sseEmitters;  
-
+	  
+	  
 	    @GetMapping(value = "/connect", produces = MediaType.TEXT_EVENT_STREAM_VALUE)  
 	    public ResponseEntity<SseEmitter> connect(HttpServletRequest request, @AuthenticationPrincipal JwtAuthentication authenticaiton) {  
 	    	log.info("connect auth : {}", authenticaiton);
@@ -45,5 +46,7 @@ public class SseController {
 	    public ResponseEntity<Void> count() {  
 	        sseEmitters.count();  
 	        return ResponseEntity.ok().build();  
-	    }  
+	    }
+	    
+	   
 }
