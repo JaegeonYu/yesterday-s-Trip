@@ -19,7 +19,7 @@ public interface ReviewMapper {
 	
 	
 	@Select("select r.id, a.nickname, r.content, r.emotion, r.create_at as createAt from review r join "
-			+ "accounts a on r.account_id = a.id where r.content_id = #{id};")
+			+ "accounts a on r.account_id = a.id where r.content_id = #{id}")
 	public List<ReviewSelectDto> selectById(@Param("id")Long contentId);
 	
 	@Update("update attraction_info set total_score = total_score + #{score} where content_id = #{attractionId}")

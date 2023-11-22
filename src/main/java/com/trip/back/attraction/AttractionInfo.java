@@ -1,6 +1,6 @@
 package com.trip.back.attraction;
 
-import com.trip.back.team.AttractionWithContent;
+import com.trip.back.team.AttractionWithTeamId;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -48,11 +48,11 @@ public class AttractionInfo {
 		return Double.valueOf(Math.round((totalScore / count) * 100) / 100);
 	}
 	
-	public AttractionInfo(AttractionWithContent att) {
+	public AttractionInfo(AttractionWithTeamId att) {
 		this.contentTypeId = att.getContentTypeId();
 		this.sidoCode = att.getSidoCode();
 		this.gugunCode = att.getGugunCode();
-		this.title = att.getTitle();
+		this.title = att.getKeyword();
 		this.address = att.getAddress();
 		this.tel = att.getTel();
 		this.zipcode = att.getZipcode();

@@ -21,27 +21,27 @@ public interface TeamMapper {
 	@Delete("delete from follow where account_id = #{accountId} and team_id = #{teamId}")
 	void deleteFollow(@Param("accountId")Long accountId, @Param("teamId")Long teamId);
 	
-	@Insert("INSERT INTO notification (account_id, title, keyword, create_at, checked, content, content_type_id) " + 
-			"SELECT f.account_id,  #{title}, #{keyword}, now(), false, #{content}, #{contentTypeId} "
+	@Insert("INSERT INTO notification (account_id, sido_code, keyword, create_at, checked, content_type_id) " + 
+			"SELECT f.account_id,  #{sidoCode}, #{keyword}, now(), false, #{contentTypeId} "
 			+ "FROM follow f JOIN team t ON f.team_id = t.id " + 
 			"WHERE t.id = #{teamId}")
-	void insertNotification(@Param("teamId")Long teamId, @Param("title") String title, 
-			@Param("keyword") String keyword, @Param("content") String content, @Param("contentTypeId")Long contentTypeId);
+	void insertNotification(@Param("teamId")Long teamId, @Param("sidoCode") Integer sidoCode, 
+			@Param("keyword") String keyword, @Param("contentTypeId")Long contentTypeId);
 	
 	// 팀 생성은 db에서만
-	@Select("select n.id, account_id accountId, title, keyword, create_at createAt, checked, content, content_type_id contentTypeId "
-			+ "from notification n join accounts a on n.account_id = a.id "
-			+ "where a.id = #{accountId} and checked = false")
+	@Select("select n.id, account_id accountId, s.sido_name as sidoName, keyword, create_at createAt, checked, content_type_id contentTypeId "
+			+ "from notification n join accounts a on n.account_id = a.id join sido s on n.sido_code = s.sido_code "
+			+ "where a.id = #{accountId} and checked = false order by createAt desc")
 	List<Notification> selectNotReadNotificationByAccountId(@Param("accountId") Long accountId);
 	
-	@Select("select n.id, account_id accountId, title, keyword, create_at createAt, checked, content, content_type_id contentTypeId "
-			+ "from notification n join accounts a on n.account_id = a.id "
-			+ "where a.id = #{accountId} and checked = true")
+	@Select("select n.id, account_id accountId, s.sido_name as sidoName, keyword, create_at createAt, checked, content_type_id contentTypeId "
+			+ "from notification n join accounts a on n.account_id = a.id join sido s on n.sido_code = s.sido_code "
+			+ "where a.id = #{accountId} and checked = true order by createAt desc")
 	List<Notification> selectReadNotificationByAccountId(@Param("accountId") Long accountId);
 	
-	@Select("select n.id, account_id accountId, title, keyword, create_at createAt, checked, content, content_type_id contentTypeId "
-			+ "from notification n join accounts a on n.account_id = a.id "
-			+ "where a.id = #{accountId}")
+	@Select("select n.id, account_id accountId, s.sido_name as sidoName, keyword, create_at createAt, checked, content_type_id contentTypeId "
+			+ "from notification n join accounts a on n.account_id = a.id join sido s on n.sido_code = s.sido_code "
+			+ "where a.id = #{accountId} order by createAt desc")
 	List<Notification> selectAllNotificationByAccountId(@Param("accountId") Long accountId);
 	
 	@Update("update notification set checked = true"
@@ -64,7 +64,7 @@ public interface TeamMapper {
 	@Select("select id, name, account_id as accountId from team where account_id = #{accountId}")
 	List<Team> findAllTeamByAccountId(@Param("accountId") Long accountId);
 	
-	@Select("select account_id from follow f join team t on f.team_id = t.id where t.id = #{teamId}")
+	@Select("select f.account_id from follow f join team t on f.team_id = t.id where t.id = #{teamId}")
 	@Result(property = "id", column = "account_id")
 	List<Account> findFollowersByTeamId(@Param("teamId") Long teamId);
 	

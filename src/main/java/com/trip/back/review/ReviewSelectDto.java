@@ -18,7 +18,5 @@ public class ReviewSelectDto {
 	private String content;
 	private Emotion emotion;
 	private Set<String> imageURLs = new HashSet<String>();
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime createAt;
 }

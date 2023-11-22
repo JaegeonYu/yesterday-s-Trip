@@ -12,6 +12,7 @@ import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,7 +45,6 @@ public class ReviewService {
 
 		// image save
 		if (uploadImages != null) {
-
 			for (MultipartFile uploadImage : uploadImages) {
 				if (uploadImage.getContentType().startsWith("image") == false)
 					throw new RuntimeException(); // TODO Exception check
@@ -55,6 +55,7 @@ public class ReviewService {
 						.reviewId(review.getId())
 						.fileURL(url)
 						.build());
+				
 //				CompletableFuture<Optional<String>> multiJob = CompletableFuture.supplyAsync(()->{
 //					try {
 //						return s3Upload.upload(uploadImage, uuid);
@@ -73,19 +74,21 @@ public class ReviewService {
 //				}catch (Exception e) {
 //					e.printStackTrace();
 //				}
+				
+			}
+		}
+	}
+				
+//				
 								
 //					s3Upload.upload(uploadImage, uuid).ifPresent(completeUrl->
 //				 	supplyAsync(()-> imageRepository.insert(ImageResultDto.builder().uuid(uuid)
 //							.reviewId(review.getId())
 //							.fileURL(completeUrl)
 //							.build())));	
-				
-				 	
 
-			}
-		}
-	}
-	
+			
+
 	private Long getEmotionScore(Emotion emotion) {
 		if(emotion.equals(Emotion.POSITIVE))return 10L;
 		else if(emotion.equals(Emotion.NEUTRAL))return 5L;
