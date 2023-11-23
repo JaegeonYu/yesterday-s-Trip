@@ -49,8 +49,8 @@ public class AttractionController {
 	}
 	
 	@GetMapping("/best/sido/{sidoCode}")
-	public ResponseEntity<AttractionBestDto> best(@PathVariable Integer sido){
-		return ResponseEntity.ok(attractionService.selectBestBySido(sido));
+	public ResponseEntity<AttractionBestDto> best(@PathVariable Integer sidoCode){
+		return ResponseEntity.ok(attractionService.selectBestBySido(sidoCode));
 	}
 	
 	@GetMapping("/best")

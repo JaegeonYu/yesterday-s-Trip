@@ -19,8 +19,9 @@ public interface AttractionMapper {
 	void insert(AttractionInfo attractionInfo);
 
 	@Select("select content_id as contentId, content_type_id as contentTypeId, sido_code as sidoCode, gugun_code as gugunCode,"
-			+ "title, address, tel, zipcode, image_url as imageUrl, latitude, longitude, mlevel, total_score as totalScore"
-			+ " from attraction_info where sido_code=#{sido} and gugun_code=#{gugun} and content_type_id=#{contentTypeId}")
+			+ "title, address, tel, zipcode, image_url as imageUrl, latitude, longitude, mlevel, total_score as totalScore, reviewCount"
+			+ " from attraction_info where sido_code=#{sido} and gugun_code=#{gugun} and content_type_id=#{contentTypeId}"
+			+ " join review r on r.content_id = attraction_info.content")
 	List<AttractionInfo> selectBySidoAndGugunAndContentType(@Param("sido") int sido, @Param("gugun") int gugun,
 			@Param("contentTypeId") Long contentTypeId);
 	

@@ -5,9 +5,11 @@ import com.trip.back.team.AttractionWithTeamId;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @Getter
+@Setter
 public class AttractionInfo {
 	private Long contentId;
 	private Long contentTypeId;
@@ -23,6 +25,7 @@ public class AttractionInfo {
 	private Double longitude;
 	private String mlevel;
 	private Long totalScore;
+	private Integer reviewCount;
 	
 	@Builder
 	public AttractionInfo(Long contentId, Long contentTypeId, int sidoCode, int gugunCode, String title, String address,

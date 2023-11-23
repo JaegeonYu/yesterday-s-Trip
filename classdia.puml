@@ -1,0 +1,591 @@
+@startuml
+class com.trip.back.mail.RealEmailService {
+- JavaMailSender javaMailSender
++ void sendEamil(EmailMessage)
+}
+class com.trip.back.security.JwtAuthenticationTokenFilter {
+- {static} Pattern BEARER
+- Logger log
+- String headerKey
+- Jwt jwt
++ void doFilter(ServletRequest,ServletResponse,FilterChain)
+- List<GrantedAuthority> obtainAuthorities(Claims)
+- boolean canRefresh(Claims,long)
+- Claims verify(String)
+- String obtainAuthorizationToken(HttpServletRequest)
+}
+class com.trip.back.geo.GeoService {
+- String clientId
+- String clientSecret
+- String url
+- ObjectMapper objectMapper
++ GeoResDto makePositon(String)
+}
+enum com.trip.back.account.Role {
++  USER
++  ADMIN
+- String value
++ String value()
++ {static} Role of(String)
+}
+class com.trip.back.account.Roles {
+- Long roleId
+- Long roleAccountId
+- String role
+}
+class com.trip.back.image.S3Uploader {
+- String s3URL
+- AmazonS3 s3
+- String bucketName
+- String folderName
++ Optional<String> upload(MultipartFile,String)
+- String upload(File,String)
+- String putS3(File,String)
+- void removeNewFile(File)
+- Optional<File> convert(MultipartFile)
+}
+class com.trip.back.account.event.AccountventListener {
+- EmailService emailService
+- {static} String domain
++ void handlerPasswordEvent(FindEmailEvent)
++ void handleVerificateEvent(VerificateEmailEvent)
+}
+class com.trip.back.config.AsyncConfig {
++ Executor getAsyncExecutor()
+}
+class com.trip.back.mail.ConsoleMailSender {
++ void sendEamil(EmailMessage)
+}
+class com.trip.back.config.JwtTokenConfig {
+- String header
+- String issuer
+- String clientSecret
+- int expirySeconds
+- int refreshExpirySeconds
++ String toString()
+}
+interface com.trip.back.attraction.AttractionMapper {
+~ void insert(AttractionInfo)
+~ List<AttractionInfo> selectBySidoAndGugunAndContentType(int,int,Long)
+~ List<AttractionInfo> selectBySidoAndGugun(int,int)
+~ List<AttractionInfo> selectBySido(int)
+~ List<AttractionInfo> selectByContentType(Long)
+~ List<AttractionInfo> selectBySidoAndContentType(int,Long)
+~ List<AttractionInfo> selectByTitle(String)
+~ Integer countReview(Long)
+~ List<AttractionResDto> selectBySidoBestScoreLimit3(Integer)
+}
+interface com.trip.back.region.SidoMapper {
++ List<Sido> selectAll()
++ String selectByCode(Integer)
+}
+class com.trip.back.account.event.VerificateEmailEvent {
+- String email
+- String code
+}
+class com.trip.back.security.JwtAuthentication {
++ Id<Account,Long> id
++ String name
++ String email
++ String toString()
+}
+
+class com.trip.back.team.NotificationController {
+- TeamService teamService
++ ResponseEntity<List<Notification>> allNotification(JwtAuthentication)
++ ResponseEntity<List<Notification>> readNotification(JwtAuthentication)
++ ResponseEntity<List<Notification>> notReadNotification(JwtAuthentication)
++ ResponseEntity readUpdateNotification(JwtAuthentication,Long)
+}
+
+
+class com.trip.back.review.ReviewService {
+- ReviewMapper reviewRepository
+- ImageMapper imageRepository
+- S3Uploader s3Upload
++ void save(Review,MultipartFile[])
+- Long getEmotionScore(Emotion)
++ List<ReviewSelectDto> selectByContentId(Long)
+}
+class com.trip.back.security.JwtAuthenticationToken {
+- Object principal
+- String credentials
+~ AuthenticationRequest authenticationRequest()
++ Object getPrincipal()
++ String getCredentials()
++ void setAuthenticated(boolean)
++ void eraseCredentials()
++ String toString()
+}
+class com.trip.back.region.Sido {
+- int sidoCode
+- String name
+}
+class com.trip.back.account.event.FindEmailEvent {
+- String email
+- String password
+}
+
+
+class com.trip.back.config.ServiceConfig {
++ Jwt jwt(JwtTokenConfig)
+}
+enum com.trip.back.review.Emotion {
++  POSITIVE
++  NEUTRAL
++  NEGATIVE
+- String emotion
++ {static} Emotion of(String)
+}
+class com.trip.back.geo.GeoResponse {
+~ Addresses[] addresses
+}
+class com.trip.back.exception.ExceptionController {
++ ResponseEntity<?> handleException(Exception)
++ ResponseEntity<?> handleServiceException(ServiceException)
++ ResponseEntity<?> handleValidatonException(MethodArgumentNotValidException)
+}
+class com.trip.back.attraction.AttractionBestDto {
+- Double shortestDistance
+- List<AttractionResDto> shortestPath
+}
+
+class com.trip.back.team.Notification {
+- Long id
+- Long accountId
+- String sidoName
+- Long contentTypeId
+- String keyword
+- boolean checked
+- LocalDateTime createAt
+}
+
+class com.trip.back.attraction.AttractionService {
+- AttractionMapper attractionRepository
+- SidoMapper sidoRepository
+- double distance
+- List<Integer> idxResult
++ List<AttractionResDto> selectByRegionAndContentType(Integer,Integer,Long)
++ List<AttractionResDto> selectByRegion(Integer,Integer)
++ List<AttractionResDto> selectBySido(Integer)
++ List<AttractionResDto> selectBySidoAndContentType(Integer,Long)
++ List<AttractionResDto> selectByContentType(Long)
++ List<AttractionResDto> selectByTitle(String)
+- Integer findReviewCountById(AttractionInfo)
++ AttractionBestDto selectBestBySido(Integer)
++ List<SidoDto> selectBest3Region()
+- AttractionBestDto getBestPath(List<AttractionResDto>)
+- List<AttractionResDto> getResultPath(List<AttractionResDto>)
+- void perm(Stack<Integer>,boolean[],List<AttractionResDto>)
+- double getDistance(Stack<Integer>,List<AttractionResDto>)
+- {static} double haversine(double,double,double,double)
+}
+class com.trip.back.team.Team {
+- Long id
+- String name
+- Long accountId
+}
+class com.trip.back.attraction.AttractionController {
+- AttractionService attractionService
+- AttractionMapper attractionRepository
++ ResponseEntity<List<AttractionResDto>> search(Integer,Integer,Long)
++ ResponseEntity<List<AttractionResDto>> keword(String)
++ ResponseEntity<AttractionBestDto> best(Integer)
++ ResponseEntity<List<SidoDto>> best()
+}
+class com.trip.back.sse.SseEmitters {
+- List<SseEmitter> emitters
+- {static} AtomicLong counter
+~ SseEmitter add(SseEmitter)
++ void count()
+}
+class com.trip.back.YesterdayTripApplication {
++ {static} void main(String[])
+}
+class com.trip.back.team.TeamController {
+- TeamService teamService
+- GeoService geoSerivce
++ ResponseEntity findTeam(JwtAuthentication)
++ ResponseEntity followTeam(JwtAuthentication,Long)
++ ResponseEntity unfollowTeam(JwtAuthentication,Long)
++ ResponseEntity getTeamsByAccountId(JwtAuthentication)
++ ResponseEntity addAttraction(JwtAuthentication,AttractionWithTeamId)
++ ResponseEntity checkPosition(String)
++ SseEmitter connectAccount(HttpServletRequest,JwtAuthentication)
+}
+
+class com.trip.back.config.RedisConfig {
+- String host
+- int port
++ RedisConnectionFactory redisConnectionFactory()
++ RedisTemplate<String,Object> redisTemplate()
+}
+class com.trip.back.sse.SseEmittersE {
+- Map<Long,SseEmitter> emitters
+- {static} AtomicLong eventId
+- {static} Long DEFAULT_TIMEOUT
++ boolean checkSse(Long)
++ SseEmitter add(Long,List<Notification>)
++ void makeNotification(Long,Long)
++ void makeLoginNotification(Long,List<Notification>)
+}
+interface com.trip.back.region.GugunMapper {
+~ void insert(Gugun)
+~ List<Gugun> selectBySidoCode(int)
+}
+
+class com.trip.back.security.Jwt {
+- String issuer
+- String clientSecret
+- int expirySeconds
+- Algorithm algorithm
+- JWTVerifier jwtVerifier
+- int refreshExpirySeconds
++ String newToken(Claims)
++ String newRefreshToken(Claims)
++ String refreshToken(String)
++ Claims verify(String)
++ String getIssuer()
++ String getClientSecret()
++ int getExpirySeconds()
++ Algorithm getAlgorithm()
++ JWTVerifier getJwtVerifier()
+}
+class com.trip.back.security.Jwt$Claims {
++ Long userKey
++ String email
+~ String nickname
+~ String[] roles
+~ Date iat
+~ Date exp
++ {static} Claims of(long,String,String,String[])
+~ long iat()
+~ long exp()
+~ void eraseIat()
+~ void eraseExp()
++ String toString()
+}
+class com.trip.back.team.Follow {
+- Long id
+- Long teamId
+- Long accountId
+}
+
+interface com.trip.back.account.AccountMapper {
+~ int save(Account)
+~ Account findByEmail(String)
+~ Account findByNickname(String)
+~ Account findById(Long)
+~ void updateRandomPassword(String,Long)
+~ void updatePassword(String,Long)
+~ int saveRole(Roles)
+~ List<Roles> getRoles(Long)
+}
+
+
+class com.trip.back.sentiment.Document {
+- String sentiment
+}
+interface com.trip.back.image.ImageMapper {
+~ void insert(ImageResultDto)
+~ List<ImageResultDto> selectByReviewId(Long)
+}
+enum com.trip.back.region.ContentType {
++  TOURIST
++  CULTURAL
++  FESTIVAL
++  LODGMENT
++  FOOD
+- Integer contentTypeId
+- String contentTypeName
++ Integer getContentTypeId()
++ String getContentTypeName()
+}
+class com.trip.back.security.EntryPointUnauthorizedHandler {
+~ {static} ResponseEntity<?> E401
+- ObjectMapper objectMaper
++ void commence(HttpServletRequest,HttpServletResponse,AuthenticationException)
+}
+class com.trip.back.sentiment.SentimentService {
+- String clientId
+- String clientSecret
+- String url
+- ObjectMapper objectMapper
++ Emotion makeEmotion(String)
+}
+enum com.trip.back.exception.ExceptionCode {
++  MEMBER_EXISTS
++  MEMBER_NOT_FOUND
++  CAN_NOT_SEND_MAIL
++  NO_SUCH_ALGORITHM
++  TOKEN_NOT_FOUND
++  TOKEN_NOT_OBTAIN
++  TEAM_NOT_FOUND
++  SEARCH_TYPE_NOT_FOUND
++  UNAUTHORIZE
+- int code
+- String message
+}
+class com.trip.back.sse.SseController {
+- SseEmitters sseEmitters
++ ResponseEntity<SseEmitter> connect(HttpServletRequest,JwtAuthentication)
++ ResponseEntity<Void> count()
+}
+class com.trip.back.account.AccountService {
+- {static} String AUTH_CODE_PREFIX
+- long authCodeExpirationMillis
+- RedisService redisService
+- AccountMapper accountRepository
+- PasswordEncoder passwordEncoder
+- ApplicationEventPublisher eventPublisher
++ void join(Account)
++ Account findByEmail(String)
++ Account findByNickname(String)
++ Account login(String,String)
++ void missPass(String)
++ void sendCodeToEmail(String)
+- String createCode()
++ boolean verifiedCode(String,String)
++ boolean checkPass(String,String)
++ void changePass(String,String)
+}
+class com.trip.back.attraction.AttractionInfo {
+- Long contentId
+- Long contentTypeId
+- int sidoCode
+- int gugunCode
+- String title
+- String address
+- String tel
+- String zipcode
+- String imageUrl
+- Double latitude
+- Double longitude
+- String mlevel
+- Long totalScore
++ Double getAvgScore(Integer)
+}
+class com.trip.back.region.Gugun {
+- int gugunCode
+- String name
+- int sidoCode
+}
+class com.trip.back.account.RedisService {
+- RedisTemplate<String,Object> redisTemplate
++ void setData(String,String,Long)
++ String getData(String)
++ void deleteData(String)
++ boolean checkExistsValue(String)
+}
+interface com.trip.back.mail.EmailService {
++ void sendEamil(EmailMessage)
+}
+class com.trip.back.security.JwtAccessDeniedHandler {
+~ {static} ResponseEntity<?> E403
+- ObjectMapper objectMaper
++ void handle(HttpServletRequest,HttpServletResponse,AccessDeniedException)
+}
+
+interface com.trip.back.review.ReviewMapper {
++ void insert(Review)
++ List<ReviewSelectDto> selectById(Long)
+~ void updateScore(Long,Long)
+}
+class com.trip.back.review.ReviewController {
+- ReviewService reviewService
+- SentimentService sentimentService
++ ResponseEntity<?> post(Long,JwtAuthentication,Review,MultipartFile[])
++ ResponseEntity<?> post(Long)
+}
+class com.trip.back.sentiment.ApiResult {
+- Document document
+}
+
+
+interface com.trip.back.auth.TokenMapper {
+~ void insert(TokenDto)
+~ void delete(Long)
+~ TokenDto findByAccountId(Long)
+}
+class com.trip.back.auth.TokenService {
+- {static} Pattern BEARER
+- TokenMapper tokenRepository
+- AccountMapper accountRepository
+- Jwt jwt
++ String refreshAccess(String)
+- String obtainToken(String)
++ void delete(Long)
++ void ifExistRefresh(String)
+}
+
+
+class com.trip.back.team.TeamService {
+- TeamMapper teamRepository
+- AccountMapper accountRepository
+- AttractionMapper attractionRepository
+- SseEmittersE accountEmitters
+~ List<TeamFollowCheckDto> findAllTeam(Long)
+~ void addFollow(Long,Long)
+~ void deleteFollow(Long,Long)
+~ void addAttraction(AttractionWithTeamId)
+~ List<Team> findTeamsByAccountId(Long)
++ List<Notification> findNotReadNotificationByAccountId(Long)
+~ List<Notification> findReadNotificationByAccountId(Long)
+~ List<Notification> findAllNotificationByAccountId(Long)
+~ void readNotifications(List<Notification>)
+~ void readNotification(Long)
+~ SseEmitter addEmitters(Long)
+}
+class com.trip.back.config.S3Config {
+~ String endPoint
+~ String regionName
+- String accessKey
+- String secretKey
++ AmazonS3 amazonS3Client()
+}
+class com.trip.back.account.AccountController {
+- AccountService accountService
++ ResponseEntity join(JoinRequest)
++ ResponseEntity sendEmail(String)
++ ResponseEntity verificateEmail(String,String)
++ ResponseEntity<Boolean> checkEmail(String)
++ ResponseEntity<Boolean> checkNickname(String)
++ ResponseEntity findPass(String)
++ ResponseEntity checkPass(JwtAuthentication,String)
++ ResponseEntity changePass(JwtAuthentication,PasswordRequest)
+}
+class com.trip.back.security.JwtAuthenticationProvider {
+- Jwt jwt
+- AccountService accountService
+- TokenMapper tokenRepository
++ boolean supports(Class<?>)
++ Authentication authenticate(Authentication)
+- Authentication processUserAuthentication(AuthenticationRequest)
+}
+
+class com.trip.back.geo.Addresses {
+- String roadAddress
+- String jibunAddress
+- Double x
+- Double y
+}
+class com.trip.back.config.SecurityConfig {
+- Jwt jwt
+- JwtTokenConfig jwtTokenConfig
+- JwtAccessDeniedHandler accessDeniedHandler
+- EntryPointUnauthorizedHandler unauthorizedHandler
+- TokenMapper tokenRepository
++ PasswordEncoder passwordEncoder()
++ JwtAuthenticationProvider jwtAuthenticationProvider(Jwt,AccountService,TokenMapper)
++ AuthenticationManager authenticationManager(AuthenticationConfiguration)
++ JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter()
++ SecurityFilterChain securityFilterChain(HttpSecurity)
++ CorsConfigurationSource corsConfigurationSource()
+}
+class com.trip.back.exception.ServiceException {
+- int code
+}
+class com.trip.back.review.Review {
+- Long id
+- Long accountId
+- Long contentId
+- String content
+- Emotion emotion
+- Set<ImageResultDto> imageURLs
+- LocalDateTime createAt
++ void updateEmotion(Emotion)
+}
+class com.trip.back.auth.AuthController {
+- AuthenticationManager authenticationManager
+- TokenService tokenService
++ ResponseEntity<AuthenticationResultDto> authentication(AuthenticationRequest)
++ ResponseEntity<AccessRefreshDto> refresh(HttpServletRequest)
++ ResponseEntity<String> refresh(JwtAuthentication)
+}
+
+class com.trip.back.mail.EmailMessage {
+- String to
+- String subject
+- String message
+}
+
+interface com.trip.back.team.TeamMapper {
+~ void insertFollow(Long,Long)
+~ void deleteFollow(Long,Long)
+~ void insertNotification(Long,Integer,String,Long)
+~ List<Notification> selectNotReadNotificationByAccountId(Long)
+~ List<Notification> selectReadNotificationByAccountId(Long)
+~ List<Notification> selectAllNotificationByAccountId(Long)
+~ void readNotifications(List<Notification>)
+~ void readNotification(Long)
+~ List<Team> findAllTeam()
+~ Team findByTeamId(Long)
+~ List<Team> findAllTeamByAccountId(Long)
+~ List<Account> findFollowersByTeamId(Long)
+~ int findFollowByAccountIdAndTeamId(Long,Long)
+}
+
+class com.trip.back.sse.AccountEmmiter {
+- Long accountId
+}
+
+
+class com.trip.back.region.RegionController {
+- GugunMapper gugunRepository
+- SidoMapper sidoRepository
++ ResponseEntity<List<SidoDto>> sidoAll()
++ ResponseEntity<List<GugunDto>> gugunAll(String)
++ ResponseEntity<List<ContentTypeDto>> contentTypes()
+}
+class com.trip.back.account.Account {
+- Long id
+- String email
+- String nickname
+- String password
+- LocalDateTime emailAt
+- List<Roles> roles
++ void passEncode(String)
++ void login(PasswordEncoder,String)
++ String newApiToken(Jwt,String[])
++ String newRefreshApiToken(Jwt,String[])
++ void afterLogin()
++ boolean canSendEmail()
+}
+class com.trip.back.review.ReviewSelectDto {
+- Long id
+- String nickname
+- String content
+- Emotion emotion
+- Set<String> imageURLs
+- LocalDateTime createAt
+}
+
+class com.trip.back.team.AttractionWithTeamId {
+- Long contentId
+- Long contentTypeId
+- Long teamId
+- int sidoCode
+- int gugunCode
+- String keyword
+- String address
+- String tel
+- String zipcode
+- String imageUrl
+- Double latitude
+- Double longitude
+- String mlevel
+}
+
+
+com.trip.back.mail.EmailService <|.. com.trip.back.mail.RealEmailService
+org.springframework.web.filter.GenericFilterBean <|-- com.trip.back.security.JwtAuthenticationTokenFilter
+org.springframework.scheduling.annotation.AsyncConfigurer <|.. com.trip.back.config.AsyncConfig
+com.trip.back.mail.EmailService <|.. com.trip.back.mail.ConsoleMailSender
+org.springframework.security.authentication.AbstractAuthenticationToken <|-- com.trip.back.security.JwtAuthenticationToken
+com.trip.back.security.Jwt +.. com.trip.back.security.Jwt$Claims
+org.springframework.security.web.AuthenticationEntryPoint <|.. com.trip.back.security.EntryPointUnauthorizedHandler
+org.springframework.security.web.access.AccessDeniedHandler <|.. com.trip.back.security.JwtAccessDeniedHandler
+org.springframework.security.authentication.AuthenticationProvider <|.. com.trip.back.security.JwtAuthenticationProvider
+com.trip.back.exception.RuntimeException <|-- com.trip.back.exception.ServiceException
+org.springframework.web.servlet.mvc.method.annotation.SseEmitter <|-- com.trip.back.sse.AccountEmmiter
+@enduml

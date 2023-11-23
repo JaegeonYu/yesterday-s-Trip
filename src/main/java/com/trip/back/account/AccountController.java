@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.trip.back.account.dto.JoinRequest;
 import com.trip.back.account.dto.PasswordRequest;
+import com.trip.back.aop.LogExecutionTime;
 import com.trip.back.security.JwtAuthentication;
 
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,7 @@ public class AccountController {
 	}
 	
 	@GetMapping("/email/verification-request")
+	@LogExecutionTime
 	public ResponseEntity sendEmail(@RequestParam @Email String email) {
 		
 		accountService.sendCodeToEmail(email);
