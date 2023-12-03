@@ -41,4 +41,4 @@
 
 <img src="https://github.com/JaegeonYu/yesterday-s-Trip/assets/76714219/94b05348-e8db-4751-846a-c8b4f3088b47" width="400" height="300"/>
 
-<img src="회원가입.png" width="400" height="300"/>
+<img src="회원가입.gif" width="400" height="300"/>
