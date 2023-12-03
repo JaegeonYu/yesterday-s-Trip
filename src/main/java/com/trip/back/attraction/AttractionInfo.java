@@ -25,8 +25,7 @@ public class AttractionInfo {
 	private Double longitude;
 	private String mlevel;
 	private Long totalScore;
-	private Integer reviewCount;
-	
+
 	@Builder
 	public AttractionInfo(Long contentId, Long contentTypeId, int sidoCode, int gugunCode, String title, String address,
 			String tel, String zipcode, String imageUrl, Double latitude, Double longitude, String mlevel, Long totalScore) {
