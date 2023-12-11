@@ -28,7 +28,8 @@ public class S3Uploader {
 	@Value("${api.s3.url}")
 	private String s3URL;
 	private final AmazonS3 s3;
-	private final String bucketName = "imagebucket";
+	@Value("${api.s3.bucket}")
+    private String bucketName;
 	private final String folderName = "images";
 
 	public Optional<String> upload(MultipartFile multipartFile, String uuid) throws IOException {

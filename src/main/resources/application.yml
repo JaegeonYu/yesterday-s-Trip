@@ -1,7 +1,8 @@
 spring:
   profiles.active: local
+  schema: classpath:schema.sql
   datasource:
-      url: jdbc:mysql://${db.url}:${db.port}/workshop?useUnicode=true&characterEncoding=utf8
+      url: jdbc:mysql://${db.url}:${db.port}/${db.db}?useUnicode=true&characterEncoding=utf8
       username: ${db.username}
       password: ${db.password}
   thymeleaf:
@@ -9,7 +10,7 @@ spring:
   servlet:
     multipart:
       enabled: true
-      location: c:/ssafy/temp
+      location: c:/yesterday/temp
       max-request-size: 30MB
       max-file-size: 10MB
   redis:
@@ -32,7 +33,7 @@ jwt:
     header: Authorization
     issuer: social_server
     clientSecret: Rel3Bjce2MajBo09qgkNgYaTuzvJe8iwnBFhsDS5
-    expirySeconds: 2592000
+    expirySeconds: 6000
     refreshExpirySeconds: 2592000
 
 api:
@@ -47,3 +48,4 @@ api:
     id: ${api.s3.id}
     secret: ${api.s3.secret}
     url: ${api.s3.url}
+    bucket: ${api.s3.bucket}
