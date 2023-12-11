@@ -112,7 +112,7 @@ Maybe you can mention me or this repo in the acknowledgements too
 ### 로그인
 
 ---
-<img src="login_sequence.png" width="600" height="400"/>
+<img src="login_sequence.png" width="400" height="700"/>
 
 
 ### 기획
