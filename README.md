@@ -9,10 +9,15 @@ Maybe you can mention me or this repo in the acknowledgements too
 <div>
 
   <h1>Yesterday's Trip</h1>
-
   ---
   <p>
-    관광지, 축제에 관한 지도 기반 웹 서비스입니다. 
+    관광지, 축제에 관한 지도 기반 웹 리뷰 서비스입니다. 
+  </p>
+<p>
+    관광지, 축제의 평점 확인, 리뷰 작성 및 조회, 평점 높고 거리가 가까운 여행지들을 추천합니다.
+  </p>
+  <p>
+    관심있는 지역을 팔로우하고 새로운 관광지 추가시 실시간 알림도 받아볼 수 있습니다. 
   </p>
 <br />
 
@@ -82,7 +87,6 @@ Maybe you can mention me or this repo in the acknowledgements too
 
 ### 지역 팔로잉
 
----
 <img src="시도_팔로잉.gif" width="600" height="400"/>
 
 <img src="관리자_컨텐츠_추가_알람.gif" width="600" height="400"/>
@@ -91,7 +95,6 @@ Maybe you can mention me or this repo in the acknowledgements too
 
 ### 컨텐츠 조회, 리뷰 작성
 
----
 <img src="베스트여행지_클러스터링_리뷰.gif" width="600" height="400"/>
 
 지도 페이지에서는 '시도, 구군, 컨텐츠' or 키워드 조회
@@ -101,16 +104,11 @@ Maybe you can mention me or this repo in the acknowledgements too
 
 ### 회원가입
 
----
-<img src="회원가입.gif" width="600" height="400"/>
-
-회원 가입 검증 절차
-- 이메일 중복 검증
-- 해당 이메일로 발송된 인증 코드 검증
+<img src="before_signup.png" width="400" height="700"/>
+<img src="after_signup.png" width="400" height="700"/>
 
 ### 로그인
 
----
 <img src="login_sequence.png" width="400" height="700"/>
 
 
