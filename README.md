@@ -20,7 +20,6 @@ Maybe you can mention me or this repo in the acknowledgements too
 <!-- TechStack -->
 ## 사용한 메인 라이브러리
 
----
 - Java 8
 - Spirng Boot 2.7.17
 - Spring Security/JWT
@@ -32,7 +31,7 @@ Maybe you can mention me or this repo in the acknowledgements too
 
 ## 프로젝트 실행
 
----
+
 - mysql
   - `db.url`
   - `db.port`
@@ -73,7 +72,7 @@ Maybe you can mention me or this repo in the acknowledgements too
 
 ## 배포 및 아키텍처
 
----
+
 <img src="img.png" width="900" height="600"/>
 
 
