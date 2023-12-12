@@ -106,7 +106,7 @@ Maybe you can mention me or this repo in the acknowledgements too
 ## 시퀀스 다이어그램
 ### 지역 팔로잉 & 실시간 알림
 <img src="follow_sequence.png" width="400" height="700"/>
-<img src="notipush_sequence.png" width="400" height="700"/>
+<img src="noti.png" width="400" height="700"/>
 
 ### 회원가입
 
