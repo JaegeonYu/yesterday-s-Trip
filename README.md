@@ -91,14 +91,14 @@ Maybe you can mention me or this repo in the acknowledgements too
 
 <img src="img/관리자_컨텐츠_추가_알람.gif" width="600" height="400"/>
 
-관심있는 지역을 팔로우 할 수 있으며, SSE(Server Sent Event)를 활용해서 팔로우한 시도의 새 컨텐츠의 알람 조회
+관심있는 지역을 팔로우 할 수 있으며, SSE(Server Sent Event)를 활용해서 팔로우한 시도의 새 컨텐츠의 알람 조회 할 수 있습니다.
 
 ### 컨텐츠 조회, 리뷰 작성
 
 <img src="img/베스트여행지_클러스터링_리뷰.gif" width="600" height="400"/>
 
 지도 페이지에서는 '시도, 구군, 컨텐츠' or 키워드 조회
-조회한 컨텐츠에 대한 리뷰 작성
+조회한 컨텐츠에 대한 리뷰 작성을 할 수 있습니다.
 
 <img src="img/리뷰_작성.gif" width="600" height="400"/>
 
@@ -121,16 +121,16 @@ Maybe you can mention me or this repo in the acknowledgements too
 
 ### 쿼리압축
 [블로그 포스팅](https://anythingis.tistory.com/167)
-- 서버와 DB 커넥션 비용을 줄이기 위한 쿼리 압축 진행
+- 서버와 DB 커넥션 비용을 줄이기 위한 쿼리 압축을 진행했습니다.
   - N+1 문제 해결을 위한 Mybatis Collection
   - INSERT INTO ~ SELECT
   - Mybatis 동적쿼리
 
 ### SSE 실시간 알림
 [블로그 포스팅](https://anythingis.tistory.com/168)
-- 서버에서 클라이언트로 단방향 알림푸쉬 통신을 위한 SSE Connection
-  - polling, long polling, websocket, sse 등의 기술 중 원하는 기능 구현에 맞는 기술 조사 및 선택
-  - 메모리로 관리하는 SSE 사용을 위한 Thread Safe 자료구조 사용
+- 서버에서 클라이언트로 단방향 알림푸쉬 통신을 위한 SSE Connection 기술을 사용했습니다
+  - polling, long polling, websocket, sse 등의 기술 중 원하는 기능 구현에 맞는 기술을 조사하고 선택했습니다.
+  - 메모리로 관리하는 SSE 사용을 위한 Thread Safe 자료구조 사용했습니다.
 
 ## ERD
 <img src="img/yesterday_erd.PNG" width="800" height="800"/>
