@@ -129,7 +129,7 @@ Maybe you can mention me or this repo in the acknowledgements too
 [블로그 포스팅](https://anythingis.tistory.com/168)
 - 서버에서 클라이언트로 단방향 알림푸쉬 통신을 위한 SSE Connection 기술을 사용했습니다
   - polling, long polling, websocket, sse 등의 기술 중 원하는 기능 구현에 맞는 기술을 조사하고 선택했습니다.
-  - 메모리로 관리하는 SSE 사용을 위한 Thread Safe 자료구조 사용했습니다.
+  - 메모리로 관리하는 SSE Emitter 소멸과 요청 콜백은 생성과 다른 쓰레드에서 진행되기 때문에 Thread Safe한 자료구조를 사용했습니다.
 
 ## ERD
 <img src="img/yesterday_erd.PNG" width="800" height="800"/>
