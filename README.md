@@ -78,7 +78,7 @@ Maybe you can mention me or this repo in the acknowledgements too
 ## 배포 및 아키텍처
 
 
-<img src="img.png" width="900" height="600"/>
+<img src="img/img.png" width="900" height="600"/>
 
 
 
@@ -87,35 +87,35 @@ Maybe you can mention me or this repo in the acknowledgements too
 
 ### 지역 팔로잉
 
-<img src="시도_팔로잉.gif" width="600" height="400"/>
+<img src="img/시도_팔로잉.gif" width="600" height="400"/>
 
-<img src="관리자_컨텐츠_추가_알람.gif" width="600" height="400"/>
+<img src="img/관리자_컨텐츠_추가_알람.gif" width="600" height="400"/>
 
 관심있는 지역을 팔로우 할 수 있으며, SSE(Server Sent Event)를 활용해서 팔로우한 시도의 새 컨텐츠의 알람 조회
 
 ### 컨텐츠 조회, 리뷰 작성
 
-<img src="베스트여행지_클러스터링_리뷰.gif" width="600" height="400"/>
+<img src="img/베스트여행지_클러스터링_리뷰.gif" width="600" height="400"/>
 
 지도 페이지에서는 '시도, 구군, 컨텐츠' or 키워드 조회
 조회한 컨텐츠에 대한 리뷰 작성
 
-<img src="리뷰_작성.gif" width="600" height="400"/>
+<img src="img/리뷰_작성.gif" width="600" height="400"/>
 
 
 ## 시퀀스 다이어그램
 ### 지역 팔로잉 & 실시간 알림
-<img src="follow_sequence.png" width="400" height="700"/>
-<img src="noti.png" width="400" height="700"/>
+<img src="img/follow_sequence.png" width="400" height="700"/>
+<img src="img/noti.png" width="400" height="700"/>
 
 ### 회원가입
 
-<img src="before_signup.png" width="400" height="700"/>
-<img src="after_signup.png" width="400" height="700"/>
+<img src="img/before_signup.png" width="400" height="700"/>
+<img src="img/after_signup.png" width="400" height="700"/>
 
 ### 로그인
 
-<img src="login_sequence.png" width="400" height="700"/>
+<img src="img/login_sequence.png" width="400" height="700"/>
 
 ## 문제 & 해결
 
@@ -133,4 +133,4 @@ Maybe you can mention me or this repo in the acknowledgements too
   - 메모리로 관리하는 SSE 사용을 위한 Thread Safe 자료구조 사용
 
 ## ERD
-<img src="yesterday_erd.PNG" width="800" height="800"/>
+<img src="img/yesterday_erd.PNG" width="800" height="800"/>
