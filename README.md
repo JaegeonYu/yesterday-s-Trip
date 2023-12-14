@@ -7,7 +7,6 @@ Don't forget to give this project a star for additional support ;)
 Maybe you can mention me or this repo in the acknowledgements too
 -->
 <div>
-
   <h1>Yesterday's Trip</h1>
 
   <p>
