@@ -117,8 +117,20 @@ Maybe you can mention me or this repo in the acknowledgements too
 
 <img src="login_sequence.png" width="400" height="700"/>
 
+## 문제 & 해결
 
+### 쿼리압축
+[블로그 포스팅](https://anythingis.tistory.com/167)
+- 서버와 DB 커넥션 비용을 줄이기 위한 쿼리 압축 진행
+  - N+1 문제 해결을 위한 Mybatis Collection
+  - INSERT INTO ~ SELECT
+  - Mybatis 동적쿼리
 
+### SSE 실시간 알림
+[블로그 포스팅](https://anythingis.tistory.com/168)
+- 서버에서 클라이언트로 단방향 알림푸쉬 통신을 위한 SSE Connection
+  - polling, long polling, websocket, sse 등의 기술 중 원하는 기능 구현에 맞는 기술 조사 및 선택
+  - 메모리로 관리하는 SSE 사용을 위한 Thread Safe 자료구조 사용
 
 ## ERD
 <img src="yesterday_erd.PNG" width="800" height="800"/>
