@@ -69,8 +69,8 @@ Maybe you can mention me or this repo in the acknowledgements too
  
  java -jar -Dapi.data=api.key
 -Dapi.naver.id=api.naver.ic -Dapi.naver.map.url=api.naver.map.url
--D api.naver.secret=api.naver.secret -Dapi.naver.url=api.naver.url
--D api.s3.id=s3.id -Dapi.s3.secret=s3.secret -Dapi.s3.url=s3.url
+-Dapi.naver.secret=api.naver.secret -Dapi.naver.url=api.naver.url
+-Dapi.s3.id=s3.id -Dapi.s3.secret=s3.secret -Dapi.s3.url=s3.url
 -Ddb.password=db.passowrd -Ddb.port=db.port -Ddb.url=db.url -Ddb.username=db.usernmae -Dmail.password=mail.password -Dmail.username=mail.usernmae -Dredis.host=redie.host -Dredis.port=redis.port target/*.jar 
  
 ```
