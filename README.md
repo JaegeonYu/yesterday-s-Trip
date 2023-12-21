@@ -131,5 +131,8 @@ Maybe you can mention me or this repo in the acknowledgements too
   - polling, long polling, websocket, sse 등의 기술 중 원하는 기능 구현에 맞는 기술을 조사하고 선택했습니다.
   - 메모리로 관리하는 SSE Emitter의 소멸과 재생성 콜백은 생성과 다른 쓰레드에서 진행되기 때문에 Thread Safe한 자료구조를 사용했습니다.
 
+### 정확하고 빠른 협업
+- 제가 설계한 백엔드 로직을 API 명세서만으로 설명하면서 프론트엔드 팀원과 구현이 다른 방향으로 이어져 협업에 어려움이 있었습니다. 시퀀스 다이어그램을 사용해 시각적으로 로직을 설명함으로써 이전에 비해 짧고 정확하게 의사소통할 수 있었고 고민에 대한 피드백도 더 빠르게 받을 수 있었습니다.
+
 ## ERD
 <img src="img/yesterday_erd.PNG" width="800" height="800"/>
