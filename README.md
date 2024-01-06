@@ -120,7 +120,7 @@ Maybe you can mention me or this repo in the acknowledgements too
 
 ### 쿼리압축
 [블로그 포스팅](https://anythingis.tistory.com/167)
-- 서버와 DB 커넥션 비용을 줄이기 위한 쿼리 압축을 진행했습니다.
+- 서버와 DB 사이의 네트워크 통신 지연되는 상황과 DB 시스템의 쿼리최적화 부담을 줄여 성능을 높이기 위해 쿼리 압축을 진행했습니다.
   - N+1 문제 해결을 위한 Mybatis Collection
   - INSERT INTO ~ SELECT
   - Mybatis 동적쿼리
