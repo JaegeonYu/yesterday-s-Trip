@@ -116,6 +116,9 @@ Maybe you can mention me or this repo in the acknowledgements too
 
 <img src="img/login_sequence.png" width="400" height="700"/>
 
+### 알림 로직
+<img src="img/sse.jpg" width="1200" height="700">
+
 ## 문제 & 해결
 
 ### 쿼리압축
